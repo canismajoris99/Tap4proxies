@@ -58,7 +58,7 @@ function updateCode(){$('fcode').textContent=code($('fn').value.trim(),$('fc').v
 function addCard(){
   var name=$('fn').value.trim(),art=$('fa').value.trim(),cat=$('fc').value.trim(),tags=$('ft').value;
   if(!name||!art||!cat){toast('Fill in name, art and category');return}
-  var chars=tags.split(',').map(function(t){return t.trim().toLowerCase().replace(/s+/g,'')}).filter(Boolean);
+  var chars=tags.split(',').map(function(t){return t.trim().toLowerCase().replace(/\s+/g,'')}).filter(Boolean);
   CARDS.push({id:genId(),name:name,art:art,section:cat.toLowerCase(),chars:chars.length?chars:[cat.toLowerCase()],code:code(name,cat),image:'',available:true});
   save();renderAll();clearForm();toast('Card saved!');
 }
@@ -66,7 +66,7 @@ function addCard(){
 function clearForm(){$('fn').value='';$('fa').value='';$('fc').value='';$('ft').value='';$('fcode').textContent='Fill in name and category...'}
 
 function handleFiles(files){
-  var imgs=Array.from(files).filter(function(f){return /.(png|jpg|jpeg|webp)$/i.test(f.name)});
+  var imgs=Array.from(files).filter(function(f){return /\.(png|jpg|jpeg|webp)$/i.test(f.name)});
   if(!imgs.length){toast('No image files found');return}
   pending=imgs.map(function(f){return parseFilename(f.name)});
   renderImpPreview();
