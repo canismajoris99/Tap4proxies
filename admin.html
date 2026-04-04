@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tap 4 Proxies Admin</title><style>body{margin:0;font-family:sans-serif;background:#0e0e10;color:#e8e6e0;min-height:100vh}#L{display:flex;align-items:center;justify-content:center;min-height:100vh}.box{background:#17171a;border:1px solid #2e2e36;border-radius:12px;padding:40px;width:320px;display:flex;flex-direction:column;gap:14px}h2{font-size:20px;color:#c9a84c;text-align:center;margin:0}input{width:100%;background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;color:#e8e6e0;font-size:14px;padding:10px;box-sizing:border-box;outline:none}button{padding:11px;border-radius:8px;border:1px solid #c9a84c;background:#26221a;color:#c9a84c;font-size:14px;cursor:pointer;width:100%}button:hover{background:#c9a84c;color:#0e0e10}.err{color:#e05555;font-size:13px;text-align:center;display:none}#A{display:none}header{background:#17171a;border-bottom:1px solid #2e2e36;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}.logo{color:#c9a84c;font-size:18px}.wrap{max-width:960px;margin:0 auto;padding:24px;display:flex;flex-direction:column;gap:20px}.panel{background:#17171a;border:1px solid #2e2e36;border-radius:12px;overflow:hidden}.ph{padding:14px 18px;border-bottom:1px solid #2e2e36;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#c9a84c;flex-wrap:wrap;gap:8px}.pb{padding:18px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}label{font-size:11px;color:#7a7870;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}.code{background:#0a0a0c;border:1px solid #2e2e36;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;color:#e8c97a;min-height:32px;margin-bottom:12px}.sbtn{padding:7px 14px;font-size:12px;border-radius:6px;border:1px solid #2e2e36;background:#1f1f24;color:#e8e6e0;cursor:pointer;width:auto}.sbtn:hover{border-color:#c9a84c;color:#c9a84c}.sbtn.p{border-color:#c9a84c;background:#26221a;color:#c9a84c}.sbtn.p:hover{background:#c9a84c;color:#0e0e10}.sbtn.d{border-color:#6a2020;color:#e05555}.sbtn.g{border-color:#2a5a2a;color:#5a9a5a}table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;padding:8px 12px;color:#7a7870;font-size:11px;border-bottom:1px solid #2e2e36;font-weight:400}td{padding:9px 12px;border-bottom:1px solid #1e1e22;vertical-align:middle}tr:last-child td{border-bottom:none}.pill{font-size:11px;padding:2px 8px;border-radius:12px;display:inline-block}.on{background:#1a2e1a;color:#5a9a5a;border:1px solid #2a5a2a}.off{background:#2a1515;color:#e05555;border:1px solid #6a2020}.acts{display:flex;gap:5px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:#1a2e1a;border:1px solid #5a9a5a;color:#5a9a5a;padding:10px 20px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap}.toast.show{transform:translateX(-50%) translateY(0)}.drop-zone{border:2px dashed #2e2e36;border-radius:10px;padding:32px;text-align:center;cursor:pointer;color:#7a7870;font-size:14px}.drop-zone:hover{border-color:#c9a84c;color:#c9a84c}.imp-tbl{width:100%;border-collapse:collapse;font-size:12px}.imp-tbl th{text-align:left;padding:7px 10px;color:#7a7870;font-size:11px;border-bottom:1px solid #2e2e36;font-weight:400}.imp-tbl td{padding:7px 10px;border-bottom:1px solid #1e1e22;vertical-align:middle}.imp-tbl input{padding:5px 8px;font-size:12px;width:100%}@media(max-width:600px){.row{grid-template-columns:1fr}}</style></head><body>
+<div id="L"><div class="box"><h2>Tap 4 Proxies</h2><p style="font-size:13px;color:#7a7870;text-align:center;margin:0">Admin access only</p><div><label>Password</label><input type="password" id="pw" placeholder="Enter password"></div><div class="err" id="err">Wrong password</div><button id="signin">Sign In</button></div></div>
+<div id="A">
+<header><div class="logo">Tap 4 Proxies / Admin</div><div style="display:flex;gap:8px"><button class="sbtn p" id="dlbtn">Download index.html</button><a href="index.html" class="sbtn" style="text-decoration:none;display:inline-flex;align-items:center">View Site</a><button class="sbtn d" id="logoutbtn">Log Out</button></div></header>
+<div class="wrap">
+<div class="panel"><div class="ph"><span>Overview</span></div><div class="pb"><div style="display:flex;gap:12px;flex-wrap:wrap" id="stats"></div></div></div>
+<div class="panel"><div class="ph"><span>Bulk Import from Images</span></div><div class="pb"><p style="font-size:13px;color:#7a7870;margin-bottom:12px">Select all your image files at once. Auto-creates card entries from filenames.</p><div class="drop-zone" id="dz" onclick="document.getElementById('fi').click()">Click to select images or drag and drop<br><span style="font-size:12px">PNG, JPG files</span></div><input type="file" id="fi" multiple accept=".png,.jpg,.jpeg,.webp" style="display:none"><div id="imp-prev" style="display:none;margin-top:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px"><span id="imp-cnt" style="font-size:13px;color:#7a7870"></span><div style="display:flex;gap:8px"><button class="sbtn g" id="imp-btn">Import All New</button><button class="sbtn" onclick="document.getElementById('imp-prev').style.display='none'">Cancel</button></div></div><div style="overflow-x:auto"><table class="imp-tbl"><thead><tr><th>Filename</th><th>MTG Card Name</th><th>Category</th><th>Status</th><th></th></tr></thead><tbody id="imp-tb"></tbody></table></div></div></div></div>
+<div class="panel"><div class="ph"><span>Add Card Manually</span></div><div class="pb"><div class="row"><div><label>MTG Card Name</label><input type="text" id="fn" placeholder="e.g. Lightning Bolt"></div><div><label>Art / Character</label><input type="text" id="fa" placeholder="e.g. Iron Man"></div><div><label>Category</label><input type="text" id="fc" placeholder="e.g. Marvel"></div><div><label>Tags (comma separated)</label><input type="text" id="ft" placeholder="e.g. ironman, red"></div></div><div><label>Code Preview</label><div class="code" id="fcode">Fill in name and category...</div></div><div style="display:flex;gap:8px"><button class="sbtn p" id="addbtn">Add Card</button><button class="sbtn" id="clearbtn">Clear</button></div></div></div>
+<div class="panel"><div class="ph"><span>All Cards (<span id="cnt">0</span>)</span><input type="text" id="srch" placeholder="Search..." style="width:180px;padding:6px 10px;font-size:13px;background:#1f1f24;border:1px solid #2e2e36;border-radius:6px;color:#e8e6e0;outline:none"></div><div style="overflow-x:auto"><table><thead><tr><th>Name</th><th>Art</th><th>Category</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+var PW='B!Gchief';
+var KEY='t4p_v3';
+var CARDS=[];
+var pending=[];
+
+function $(i){return document.getElementById(i)}
+function toast(m){var e=$('toast');e.textContent=m;e.className='toast show';setTimeout(function(){e.className='toast'},2600)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(CARDS))}catch(e){}}
+function load(){try{var d=localStorage.getItem(KEY);if(d)CARDS=JSON.parse(d)}catch(e){CARDS=[]}}
+function slug(s){return s.toUpperCase().replace(/[^A-Z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function code(n,c){if(!n||!c)return'Fill in name and category...';return'MTG-'+slug(n)+'-'+slug(c)}
+function genId(){return'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):''}
+
+var KNOWN={"BLACK-LOTUS":"Black Lotus","MANA-CRYPT":"Mana Crypt","SOL-RING":"Sol Ring","MANA-VAULT":"Mana Vault","GRIM-MONOLITH":"Grim Monolith","CHROME-MOX":"Chrome Mox","MOX-DIAMOND":"Mox Diamond","MOX-OPAL":"Mox Opal","LOTUS-PETAL":"Lotus Petal","JEWELED-LOTUS":"Jeweled Lotus","THE-ONE-RING":"The One Ring","SCROLL-RACK":"Scroll Rack","AETHERFLUX-RESERVOIR":"Aetherflux Reservoir","ISOCHRON-SCEPTER":"Isochron Scepter","BASALT-MONOLITH":"Basalt Monolith","CRUCIBLE-OF-WORLDS":"Crucible of Worlds","LIGHTNING-GREAVES":"Lightning Greaves","SWIFTFOOT-BOOTS":"Swiftfoot Boots","SKULLCLAMP":"Skullclamp","ARCANE-SIGNET":"Arcane Signet","FELLWAR-STONE":"Fellwar Stone","MIND-STONE":"Mind Stone","THOUGHT-VESSEL":"Thought Vessel","ANCIENT-TOMB":"Ancient Tomb","CITY-OF-TRAITORS":"City of Traitors","CAVERN-OF-SOULS":"Cavern of Souls","RELIQUARY-TOWER":"Reliquary Tower","STRIP-MINE":"Strip Mine","WASTELAND":"Wasteland","RHYSTIC-STUDY":"Rhystic Study","MYSTIC-REMORA":"Mystic Remora","SMOTHERING-TITHE":"Smothering Tithe","ESPER-SENTINEL":"Esper Sentinel","GRAND-ABOLISHER":"Grand Abolisher","SILENCE":"Silence","DEFLECTING-SWAT":"Deflecting Swat","FIERCE-GUARDIANSHIP":"Fierce Guardianship","FORCE-OF-WILL":"Force of Will","FORCE-OF-NEGATION":"Force of Negation","PACT-OF-NEGATION":"Pact of Negation","SWAN-SONG":"Swan Song","FLUSTERSTORM":"Flusterstorm","CYCLONIC-RIFT":"Cyclonic Rift","UNDERWORLD-BREACH":"Underworld Breach","DEMONIC-TUTOR":"Demonic Tutor","VAMPIRIC-TUTOR":"Vampiric Tutor","MYSTICAL-TUTOR":"Mystical Tutor","ENLIGHTENED-TUTOR":"Enlightened Tutor","WORLDLY-TUTOR":"Worldly Tutor","GAMBLE":"Gamble","AD-NAUSEAM":"Ad Nauseam","NECROPOTENCE":"Necropotence","WHEEL-OF-FORTUNE":"Wheel of Fortune","WINDFALL":"Windfall","TIMETWISTER":"Timetwister","BRAINSTORM":"Brainstorm","PONDER":"Ponder","PREORDAIN":"Preordain","BRAIN-FREEZE":"Brain Freeze","DRAMATIC-REVERSAL":"Dramatic Reversal","TOXIC-DELUGE":"Toxic Deluge","BIRDS-OF-PARADISE":"Birds of Paradise","SURVIVAL-OF-THE-FITTEST":"Survival of the Fittest","FINALE-OF-DEVASTATION":"Finale of Devastation","CRATERHOOF-BEHEMOTH":"Craterhoof Behemoth","OPPOSITION-AGENT":"Opposition Agent","DAUTHI-VOIDWALKER":"Dauthi Voidwalker","BLOOD-MOON":"Blood Moon","BLOOD-ARTIST":"Blood Artist","BLOOM-TENDER":"Bloom Tender","IMPERIAL-SEAL":"Imperial Seal","ORCISH-BOWMASTERS":"Orcish Bowmasters","REANIMATE":"Reanimate","ENTOMB":"Entomb","MANA-DRAIN":"Mana Drain","LIGHTNING-BOLT":"Lightning Bolt","CULTIVATE":"Cultivate","SHEOLDRED":"Sheoldred","FAREWELL":"Farewell","WILL-SMITH":"Will Smith","EDWARD-CULLEN":"Edward Cullen","TWILIGHT":"Twilight","WILLIAM-SHAKESPEAR":"William Shakespear","SMOTHERING-TITHE":"Smothering Tithe","TEFERI-S-PROTECTION":"Teferi's Protection","BIRDS-OF-PARADISE":"Birds of Paradise"};
+
+$('pw').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
+$('signin').addEventListener('click',doLogin);
+$('logoutbtn').addEventListener('click',function(){$('L').style.display='flex';$('A').style.display='none';$('pw').value=''});
+$('addbtn').addEventListener('click',addCard);
+$('clearbtn').addEventListener('click',clearForm);
+$('fn').addEventListener('input',updateCode);
+$('fc').addEventListener('input',updateCode);
+$('srch').addEventListener('input',renderTable);
+$('dlbtn').addEventListener('click',downloadIndex);
+$('fi').addEventListener('change',function(){handleFiles(this.files)});
+$('imp-btn').addEventListener('click',importAll);
+$('dz').addEventListener('dragover',function(e){e.preventDefault();this.style.borderColor='#c9a84c'});
+$('dz').addEventListener('dragleave',function(){this.style.borderColor='#2e2e36'});
+$('dz').addEventListener('drop',function(e){e.preventDefault();this.style.borderColor='#2e2e36';handleFiles(e.dataTransfer.files)});
+
+function doLogin(){
+  if($('pw').value===PW){
+    $('L').style.display='none';
+    $('A').style.display='block';
+    load();renderAll();
+  } else {
+    $('err').style.display='block';
+    $('pw').value='';
+    $('pw').focus();
+  }
+}
+
+function updateCode(){$('fcode').textContent=code($('fn').value.trim(),$('fc').value.trim())}
+
+function addCard(){
+  var name=$('fn').value.trim(),art=$('fa').value.trim(),cat=$('fc').value.trim(),tags=$('ft').value;
+  if(!name||!art||!cat){toast('Fill in name, art and category');return}
+  var chars=tags.split(',').map(function(t){return t.trim().toLowerCase().replace(/s+/g,'')}).filter(Boolean);
+  CARDS.push({id:genId(),name:name,art:art,section:cat.toLowerCase(),chars:chars.length?chars:[cat.toLowerCase()],code:code(name,cat),image:'',available:true});
+  save();renderAll();clearForm();toast('Card saved!');
+}
+
+function clearForm(){$('fn').value='';$('fa').value='';$('fc').value='';$('ft').value='';$('fcode').textContent='Fill in name and category...'}
+
+function handleFiles(files){
+  var imgs=Array.from(files).filter(function(f){return /.(png|jpg|jpeg|webp)$/i.test(f.name)});
+  if(!imgs.length){toast('No image files found');return}
+  pending=imgs.map(function(f){return parseFilename(f.name)});
+  renderImpPreview();
+  $('imp-prev').style.display='block';
+}
+
+function parseFilename(filename){
+  var base=filename.replace(/.(png|jpg|jpeg|webp)$/i,'');
+  var clean=base.replace(/^MTG-/i,'');
+  var parts=clean.split('-').filter(Boolean);
+  var cardName='',category='';
+  for(var i=parts.length-1;i>=1;i--){
+    var ns=parts.slice(0,i).join('-').toUpperCase();
+    if(KNOWN[ns]){cardName=KNOWN[ns];category=parts.slice(i).join('').toLowerCase();break}
+  }
+  if(!cardName){cardName=parts.slice(0,-1).map(function(p){return p.charAt(0).toUpperCase()+p.slice(1).toLowerCase()}).join(' ');category=parts.slice(-1).join('').toLowerCase()}
+  var c='MTG-'+parts.join('-').toUpperCase();
+  return{filename:filename,cardName:cardName,category:category,code:c,exists:!!CARDS.find(function(x){return x.code===c}),skip:false};
+}
+
+function renderImpPreview(){
+  var n=pending.filter(function(p){return !p.exists&&!p.skip}).length;
+  $('imp-cnt').textContent=pending.length+' files - '+n+' new';
+  var tb=$('imp-tb');tb.innerHTML='';
+  pending.forEach(function(row,i){
+    var tr=document.createElement('tr');
+    if(row.skip)tr.style.opacity='0.4';
+    tr.innerHTML='<td style="font-family:monospace;font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+row.filename+'</td>'+
+    '<td><input type="text" value="'+row.cardName+'" onchange="pending['+i+'].cardName=this.value" style="width:140px"></td>'+
+    '<td><input type="text" value="'+row.category+'" onchange="pending['+i+'].category=this.value" style="width:100px"></td>'+
+    '<td><span class="pill '+(row.exists?'off':'on')+'">'+(row.exists?'Exists':'New')+'</span></td>'+
+    '<td><button class="sbtn '+(row.skip?'g':'d')+'" onclick="pending['+i+'].skip=!pending['+i+'].skip;renderImpPreview()">'+(row.skip?'Undo':'Skip')+'</button></td>';
+    tb.appendChild(tr);
+  });
+}
+
+function importAll(){
+  var toAdd=pending.filter(function(p){return !p.skip&&!p.exists});
+  if(!toAdd.length){toast('No new cards to import');return}
+  toAdd.forEach(function(row){
+    CARDS.push({id:genId(),name:row.cardName,art:row.cardName,section:row.category.toLowerCase(),chars:[row.category.toLowerCase()],code:row.code,image:'',available:true});
+  });
+  save();renderAll();
+  $('imp-prev').style.display='none';
+  $('fi').value='';
+  toast(toAdd.length+' cards imported! Click Download index.html to update your site.');
+}
+
+function renderStats(){
+  var t=CARDS.length,av=CARDS.filter(function(c){return c.available}).length,sec=[...new Set(CARDS.map(function(c){return c.section}))].length;
+  $('stats').innerHTML='<div style="background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;padding:10px 16px"><div style="font-size:22px;font-weight:500;color:#c9a84c">'+t+'</div><div style="font-size:11px;color:#7a7870">Total cards</div></div>'+
+  '<div style="background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;padding:10px 16px"><div style="font-size:22px;font-weight:500;color:#c9a84c">'+av+'</div><div style="font-size:11px;color:#7a7870">Available</div></div>'+
+  '<div style="background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;padding:10px 16px"><div style="font-size:22px;font-weight:500;color:#c9a84c">'+sec+'</div><div style="font-size:11px;color:#7a7870">Categories</div></div>';
+}
+
+function renderTable(){
+  var q=($('srch').value||'').toLowerCase();
+  var rows=CARDS.filter(function(c){return !q||[c.name,c.art,c.section,c.code].join(' ').toLowerCase().includes(q)});
+  $('cnt').textContent=CARDS.length;
+  var tb=$('tb');tb.innerHTML='';
+  if(!rows.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:#7a7870;padding:24px">No cards yet</td></tr>';return}
+  rows.forEach(function(c){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td style="font-weight:500">'+c.name+'</td><td style="color:#7a7870">'+c.art+'</td>'+
+    '<td>'+cap(c.section)+'</td><td style="font-family:monospace;font-size:11px;color:#7a7870">'+c.code+'</td>'+
+    '<td><span class="pill '+(c.available?'on':'off')+'">'+(c.available?'On':'Off')+'</span></td>'+
+    '<td><div class="acts">'+
+    '<button class="sbtn" onclick="toggleAvail(''+c.id+'')">'+(c.available?'Hide':'Show')+'</button>'+
+    '<button class="sbtn d" onclick="del(''+c.id+'')">Delete</button>'+
+    '</div></td>';
+    tb.appendChild(tr);
+  });
+}
+
+function toggleAvail(id){var c=CARDS.find(function(x){return x.id===id});if(!c)return;c.available=!c.available;save();renderAll();toast(c.available?'Card visible':'Card hidden')}
+function del(id){if(!confirm('Delete this card?'))return;CARDS=CARDS.filter(function(c){return c.id!==id});save();renderAll();toast('Deleted')}
+function renderAll(){renderStats();renderTable()}
+
+function downloadIndex(){
+  var j=JSON.stringify(CARDS);
+  var html=getIndexTemplate().replace('var CARDS=[];',('var CARDS='+j+';'));
+  var b=new Blob([html],{type:'text/html'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);
+  a.download='index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('index.html downloaded! Upload to Netlify or GitHub.');
+}
+
+function getIndexTemplate(){
+  return document.currentScript?'':window._indexTemplate||'';
+}
+</script>
+<script>
+window._indexTemplate = document.querySelector('#L') ? '' : '';
+</script>
+</body></html>
