@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +26,7 @@ header{background:#17171a;border-bottom:1px solid #2e2e36;padding:14px 24px;disp
 .fg{display:flex;flex-direction:column;gap:4px}
 .full{grid-column:1/-1}
 .lbl{font-size:11px;color:#7a7870;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
-.codebox{background:#0a0a0c;border:1px solid #2e2e36;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;color:#e8c97a;min-height:32px;margin-bottom:12px;word-break:break-all}
+.codebox{background:#0a0a0c;border:1px solid #2e2e36;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;color:#e8c97a;min-height:32px;margin-bottom:12px}
 .sbtn{padding:7px 14px;font-size:12px;border-radius:6px;border:1px solid #2e2e36;background:#1f1f24;color:#e8e6e0;cursor:pointer}
 .sbtn:hover{border-color:#c9a84c;color:#c9a84c}
 .sbtn.p{border-color:#c9a84c;background:#26221a;color:#c9a84c}
@@ -41,7 +40,7 @@ header{background:#17171a;border-bottom:1px solid #2e2e36;padding:14px 24px;disp
 .stn{font-size:22px;font-weight:500;color:#c9a84c}
 .stl{font-size:11px;color:#7a7870}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;padding:8px 12px;color:#7a7870;font-size:11px;border-bottom:1px solid #2e2e36;font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+th{text-align:left;padding:8px 12px;color:#7a7870;font-size:11px;border-bottom:1px solid #2e2e36;font-weight:400}
 td{padding:9px 12px;border-bottom:1px solid #1e1e22;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#1a1a1e}
@@ -49,21 +48,20 @@ tr:hover td{background:#1a1a1e}
 .on{background:#1a2e1a;color:#5a9a5a;border:1px solid #2a5a2a}
 .off{background:#2a1515;color:#e05555;border:1px solid #6a2020}
 .acts{display:flex;gap:5px;flex-wrap:wrap}
-.dz{border:2px dashed #2e2e36;border-radius:10px;padding:40px;text-align:center;cursor:pointer;color:#7a7870;font-size:15px;transition:all .2s}
+.dz{border:2px dashed #2e2e36;border-radius:10px;padding:32px;text-align:center;cursor:pointer;color:#7a7870;font-size:14px;transition:all .2s}
 .dz:hover{border-color:#c9a84c;color:#c9a84c;background:#1a1a14}
 .imptbl{width:100%;border-collapse:collapse;font-size:12px}
 .imptbl th{text-align:left;padding:7px 10px;color:#7a7870;font-size:11px;border-bottom:1px solid #2e2e36;font-weight:400}
 .imptbl td{padding:7px 10px;border-bottom:1px solid #1e1e22;vertical-align:middle}
 .imptbl input{padding:5px 8px;font-size:12px;background:#1f1f24;border:1px solid #2e2e36;border-radius:4px;color:#e8e6e0;outline:none}
-.copybox{background:#0a0a0c;border:1px solid #2e2e36;border-radius:8px;padding:14px;font-family:monospace;font-size:11px;color:#e8c97a;max-height:200px;overflow-y:auto;white-space:pre;margin-bottom:10px;line-height:1.5}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a2e1a;border:1px solid #5a9a5a;color:#5a9a5a;padding:10px 22px;border-radius:20px;font-size:13px;transition:transform .3s;z-index:999;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
+.hint{font-size:13px;color:#7a7870;line-height:1.6;margin-bottom:12px}
 @media(max-width:600px){.g2{grid-template-columns:1fr}.full{grid-column:1}header{padding:12px 16px}.wrap{padding:16px}}
 </style>
 </head>
 <body>
-
-<div id="L">
+  <div id="L">
   <div class="box">
     <h2>Tap 4 Proxies</h2>
     <p class="sub">Admin access only</p>
@@ -80,6 +78,7 @@ tr:hover td{background:#1a1a1e}
   <header>
     <div class="logo">Tap 4 Proxies / Admin</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="sbtn p" id="dlbtn">Download index.html</button>
       <a href="index.html" class="sbtn" style="text-decoration:none">View Site</a>
       <button class="sbtn d" id="logoutbtn">Log Out</button>
     </div>
@@ -87,36 +86,28 @@ tr:hover td{background:#1a1a1e}
 
   <div class="wrap">
 
-    <!-- Overview -->
     <div class="panel">
       <div class="ph">Overview</div>
       <div class="pb"><div class="stats" id="stats"></div></div>
     </div>
 
-    <!-- Bulk Image Import -->
     <div class="panel">
-      <div class="ph">
-        <span>Bulk Import from Images</span>
-        <span style="font-size:12px;color:#7a7870">Auto-sorts and tags from filenames</span>
-      </div>
+      <div class="ph">Bulk Import from Images</div>
       <div class="pb">
-        <p style="font-size:13px;color:#7a7870;margin-bottom:14px">Select all your image files at once. The tool reads each filename and automatically creates card entries sorted by category with tags applied.</p>
-        <div class="dz" id="dz">
-          Click to select images or drag and drop<br>
-          <span style="font-size:12px;margin-top:6px;display:block">Supports PNG, JPG, JPEG, WEBP</span>
-        </div>
+        <p class="hint">Select all your image files at once. Auto-creates card entries from filenames. Review before importing.</p>
+        <div class="dz" id="dz">Click to select images or drag and drop<br><span style="font-size:12px">PNG, JPG files</span></div>
         <input type="file" id="fi" multiple accept=".png,.jpg,.jpeg,.webp" style="display:none">
-        <div id="impprev" style="display:none;margin-top:16px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div id="impprev" style="display:none;margin-top:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
             <span id="impcnt" style="font-size:13px;color:#7a7870"></span>
             <div style="display:flex;gap:8px">
-              <button class="sbtn g" id="impbtn">Import All New Cards</button>
+              <button class="sbtn g" id="impbtn">Import All New</button>
               <button class="sbtn" id="impcancelbtn">Cancel</button>
             </div>
           </div>
           <div style="overflow-x:auto">
             <table class="imptbl">
-              <thead><tr><th>Filename</th><th>MTG Card Name</th><th>Category</th><th>Auto Tags</th><th>Status</th><th></th></tr></thead>
+              <thead><tr><th>Filename</th><th>MTG Card Name</th><th>Category</th><th>Tags</th><th>Status</th><th></th></tr></thead>
               <tbody id="imptb"></tbody>
             </table>
           </div>
@@ -124,7 +115,6 @@ tr:hover td{background:#1a1a1e}
       </div>
     </div>
 
-    <!-- Add Card Manually -->
     <div class="panel">
       <div class="ph">Add Card Manually</div>
       <div class="pb">
@@ -132,7 +122,7 @@ tr:hover td{background:#1a1a1e}
           <div class="fg"><span class="lbl">MTG Card Name</span><input type="text" id="fn" placeholder="e.g. Lightning Bolt"></div>
           <div class="fg"><span class="lbl">Art / Character</span><input type="text" id="fa" placeholder="e.g. Iron Man"></div>
           <div class="fg"><span class="lbl">Category</span><input type="text" id="fc" placeholder="e.g. Marvel"></div>
-          <div class="fg"><span class="lbl">Tags (comma separated)</span><input type="text" id="ft" placeholder="e.g. ironman, red, avengers"></div>
+          <div class="fg"><span class="lbl">Tags (comma separated)</span><input type="text" id="ft" placeholder="e.g. ironman, red"></div>
           <div class="fg full"><span class="lbl">Generated Code</span><div class="codebox" id="fcode">Fill in name and category...</div></div>
         </div>
         <div style="display:flex;gap:8px">
@@ -142,7 +132,6 @@ tr:hover td{background:#1a1a1e}
       </div>
     </div>
 
-    <!-- All Cards -->
     <div class="panel">
       <div class="ph">
         <span>All Cards (<span id="cnt">0</span>)</span>
@@ -156,37 +145,15 @@ tr:hover td{background:#1a1a1e}
       </div>
     </div>
 
-    <!-- Export / Copy -->
-    <div class="panel">
-      <div class="ph">Export & Download</div>
-      <div class="pb">
-        <p style="font-size:13px;color:#7a7870;margin-bottom:16px">Download a ready-to-upload <strong style="color:#e8c97a">index.html</strong> with all your cards baked in. Or copy either file to paste into GitHub.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
-          <button class="sbtn p" id="dlbtn">Download index.html</button>
-          <button class="sbtn g" id="copyindexbtn">Copy index.html code</button>
-          <button class="sbtn" id="copyadminbtn">Copy admin.html code</button>
-        </div>
-        <div id="copyoutput" style="display:none">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span id="copylabel" style="font-size:13px;color:#7a7870"></span>
-            <button class="sbtn p" id="clipboardbtn">Copy to Clipboard</button>
-          </div>
-          <div class="copybox" id="copybox"></div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script>
 var PW = 'B!Gchief';
 var KEY = 't4p_v3';
 var CARDS = [];
 var pending = [];
-var adminCode = '';
 
 var KNOWN = {
   "BLACK-LOTUS":"Black Lotus","MANA-CRYPT":"Mana Crypt","SOL-RING":"Sol Ring",
@@ -222,7 +189,7 @@ var KNOWN = {
   "LIGHTNING-BOLT":"Lightning Bolt","CULTIVATE":"Cultivate","SHEOLDRED":"Sheoldred",
   "FAREWELL":"Farewell","WILL-SMITH":"Will Smith","EDWARD-CULLEN":"Edward Cullen",
   "TWILIGHT":"Twilight","WILLIAM-SHAKESPEAR":"William Shakespear",
-  "TEFERI-S-PROTECTION":"Teferi's Protection","SMOTHERING-TITHE":"Smothering Tithe"
+  "TEFERI-S-PROTECTION":"Teferi's Protection"
 };
 
 function ge(id) { return document.getElementById(id); }
@@ -262,7 +229,6 @@ function cap(s) {
   return s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
 }
 
-// Login
 ge('pw').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
 ge('signin').addEventListener('click', doLogin);
 
@@ -270,10 +236,7 @@ function doLogin() {
   if (ge('pw').value === PW) {
     ge('L').style.display = 'none';
     ge('A').style.display = 'block';
-    load();
-    renderAll();
-    // Store admin code for copy feature
-    adminCode = document.documentElement.outerHTML;
+    load(); renderAll();
   } else {
     ge('err').style.display = 'block';
     ge('pw').value = '';
@@ -287,14 +250,13 @@ ge('logoutbtn').addEventListener('click', function() {
   ge('pw').value = '';
 });
 
-// Code preview
-function updatePreview() {
+ge('fn').addEventListener('input', function() {
   ge('fcode').textContent = makeCode(ge('fn').value.trim(), ge('fc').value.trim());
-}
-ge('fn').addEventListener('input', updatePreview);
-ge('fc').addEventListener('input', updatePreview);
+});
+ge('fc').addEventListener('input', function() {
+  ge('fcode').textContent = makeCode(ge('fn').value.trim(), ge('fc').value.trim());
+});
 
-// Add card
 ge('addbtn').addEventListener('click', addCard);
 ge('clearbtn').addEventListener('click', clearForm);
 
@@ -307,10 +269,10 @@ function addCard() {
   var chars = tags.split(',').map(function(t) {
     return t.trim().toLowerCase().split(' ').join('');
   }).filter(Boolean);
-  if (!chars.length) chars = [cat.toLowerCase()];
   CARDS.push({
     id: genId(), name: name, art: art,
-    section: cat.toLowerCase(), chars: chars,
+    section: cat.toLowerCase(),
+    chars: chars.length ? chars : [cat.toLowerCase()],
     code: makeCode(name, cat), image: '', available: true
   });
   save(); renderAll(); clearForm(); showToast('Card saved!');
@@ -322,23 +284,18 @@ function clearForm() {
   ge('fcode').textContent = 'Fill in name and category...';
 }
 
-// Image import
 ge('dz').addEventListener('click', function() { ge('fi').click(); });
-ge('dz').addEventListener('dragover', function(e) {
-  e.preventDefault(); this.style.borderColor = '#c9a84c'; this.style.background = '#1a1a14';
-});
-ge('dz').addEventListener('dragleave', function() {
-  this.style.borderColor = '#2e2e36'; this.style.background = '';
-});
+ge('dz').addEventListener('dragover', function(e) { e.preventDefault(); ge('dz').style.borderColor = '#c9a84c'; });
+ge('dz').addEventListener('dragleave', function() { ge('dz').style.borderColor = '#2e2e36'; });
 ge('dz').addEventListener('drop', function(e) {
-  e.preventDefault(); this.style.borderColor = '#2e2e36'; this.style.background = '';
+  e.preventDefault(); ge('dz').style.borderColor = '#2e2e36';
   handleFiles(e.dataTransfer.files);
 });
 ge('fi').addEventListener('change', function() { handleFiles(this.files); });
 ge('impbtn').addEventListener('click', importAll);
 ge('impcancelbtn').addEventListener('click', function() {
   ge('impprev').style.display = 'none';
-  pending = [];
+  ge('fi').value = '';
 });
 
 function handleFiles(files) {
@@ -347,14 +304,6 @@ function handleFiles(files) {
   });
   if (!imgs.length) { showToast('No image files found'); return; }
   pending = imgs.map(function(f) { return parseFilename(f.name); });
-  // Sort by category then card name
-  pending.sort(function(a, b) {
-    if (a.category < b.category) return -1;
-    if (a.category > b.category) return 1;
-    if (a.cardName < b.cardName) return -1;
-    if (a.cardName > b.cardName) return 1;
-    return 0;
-  });
   renderImpPreview();
   ge('impprev').style.display = 'block';
 }
@@ -379,32 +328,28 @@ function parseFilename(filename) {
     category = parts.slice(-1).join('').toLowerCase();
   }
   var c = 'MTG-' + parts.join('-').toUpperCase();
-  // Auto-generate tags from category and card name words
-  var tags = [category];
-  return {
-    filename: filename, cardName: cardName, category: category,
-    tags: tags.join(', '),
-    code: c, exists: !!CARDS.find(function(x) { return x.code === c; }), skip: false
-  };
+  var exists = !!CARDS.find(function(x) { return x.code === c; });
+  return { filename: filename, cardName: cardName, category: category,
+    tags: category, code: c, exists: exists, skip: false };
 }
 
 function renderImpPreview() {
   var n = pending.filter(function(p) { return !p.exists && !p.skip; }).length;
-  ge('impcnt').textContent = pending.length + ' files — ' + n + ' new cards to import';
+  ge('impcnt').textContent = pending.length + ' files — ' + n + ' new';
   var tb = ge('imptb'); tb.innerHTML = '';
   pending.forEach(function(row, i) {
     var tr = document.createElement('tr');
     if (row.skip) tr.style.opacity = '0.4';
     tr.innerHTML =
-      '<td style="font-family:monospace;font-size:11px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + row.filename + '">' + row.filename + '</td>' +
-      '<td><input type="text" value="' + row.cardName + '" data-i="' + i + '" data-f="cardName" class="imp-input" style="width:130px"></td>' +
-      '<td><input type="text" value="' + row.category + '" data-i="' + i + '" data-f="category" class="imp-input" style="width:90px"></td>' +
-      '<td><input type="text" value="' + row.tags + '" data-i="' + i + '" data-f="tags" class="imp-input" style="width:120px"></td>' +
+      '<td style="font-family:monospace;font-size:11px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + row.filename + '</td>' +
+      '<td><input type="text" value="' + row.cardName + '" data-i="' + i + '" data-f="cardName" class="imp-inp" style="width:130px"></td>' +
+      '<td><input type="text" value="' + row.category + '" data-i="' + i + '" data-f="category" class="imp-inp" style="width:90px"></td>' +
+      '<td><input type="text" value="' + row.tags + '" data-i="' + i + '" data-f="tags" class="imp-inp" style="width:90px"></td>' +
       '<td><span class="pill ' + (row.exists ? 'off' : 'on') + '">' + (row.exists ? 'Exists' : 'New') + '</span></td>' +
       '<td><button class="sbtn ' + (row.skip ? 'g' : 'd') + ' skip-btn" data-i="' + i + '">' + (row.skip ? 'Undo' : 'Skip') + '</button></td>';
     tb.appendChild(tr);
   });
-  tb.querySelectorAll('.imp-input').forEach(function(inp) {
+  tb.querySelectorAll('.imp-inp').forEach(function(inp) {
     inp.addEventListener('change', function() {
       pending[parseInt(this.getAttribute('data-i'))][this.getAttribute('data-f')] = this.value;
     });
@@ -428,19 +373,16 @@ function importAll() {
     if (!chars.length) chars = [row.category.toLowerCase()];
     CARDS.push({
       id: genId(), name: row.cardName, art: row.cardName,
-      section: row.category.toLowerCase(), chars: chars,
-      code: row.code, image: '', available: true
+      section: row.category.toLowerCase(),
+      chars: chars, code: row.code, image: '', available: true
     });
   });
   save(); renderAll();
   ge('impprev').style.display = 'none';
   ge('fi').value = '';
-  pending = [];
   showToast(toAdd.length + ' cards imported and saved!');
 }
-
-// Stats
-function renderStats() {
+  function renderStats() {
   var t = CARDS.length;
   var av = CARDS.filter(function(c) { return c.available; }).length;
   var sec = [];
@@ -452,7 +394,6 @@ function renderStats() {
     '<div class="stat"><div class="stn">' + sec.length + '</div><div class="stl">Categories</div></div>';
 }
 
-// Table
 ge('srch').addEventListener('input', renderTable);
 
 function renderTable() {
@@ -464,7 +405,7 @@ function renderTable() {
   ge('cnt').textContent = CARDS.length;
   var tb = ge('tb'); tb.innerHTML = '';
   if (!rows.length) {
-    tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#7a7870;padding:24px">No cards yet. Add some above!</td></tr>';
+    tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#7a7870;padding:24px">No cards yet</td></tr>';
     return;
   }
   rows.forEach(function(card) {
@@ -489,23 +430,20 @@ function renderTable() {
       if (!card) return;
       card.available = !card.available;
       save(); renderAll();
-      showToast(card.available ? 'Card is now visible' : 'Card is now hidden');
+      showToast(card.available ? 'Card visible' : 'Card hidden');
     });
   });
   tb.querySelectorAll('.del-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var id = this.closest('tr').getAttribute('data-id');
-      if (!confirm('Delete this card? Cannot be undone.')) return;
+      if (!confirm('Delete this card?')) return;
       CARDS = CARDS.filter(function(c) { return c.id !== id; });
-      save(); renderAll(); showToast('Card deleted');
+      save(); renderAll(); showToast('Deleted');
     });
   });
 }
 
-// Download index.html
-ge('dlbtn').addEventListener('click', downloadIndex);
-
-function downloadIndex() {
+ge('dlbtn').addEventListener('click', function() {
   var j = JSON.stringify(CARDS);
   var html = getIndexTemplate().replace('var CARDS = [];', 'var CARDS = ' + j + ';');
   var blob = new Blob([html], { type: 'text/html' });
@@ -514,57 +452,14 @@ function downloadIndex() {
   a.download = 'index.html';
   a.click();
   URL.revokeObjectURL(a.href);
-  showToast('index.html downloaded! Upload to Netlify or GitHub.');
-}
-
-// Copy buttons
-ge('copyindexbtn').addEventListener('click', function() {
-  var j = JSON.stringify(CARDS);
-  var html = getIndexTemplate().replace('var CARDS = [];', 'var CARDS = ' + j + ';');
-  ge('copybox').textContent = html;
-  ge('copylabel').textContent = 'index.html — select all below and copy (Ctrl+A, Ctrl+C)';
-  ge('copyoutput').style.display = 'block';
-  ge('clipboardbtn').onclick = function() {
-    navigator.clipboard.writeText(html).then(function() {
-      showToast('index.html code copied to clipboard!');
-    }).catch(function() {
-      ge('copybox').select();
-      showToast('Use Ctrl+A then Ctrl+C to copy from the box below');
-    });
-  };
-  ge('copyoutput').scrollIntoView({ behavior: 'smooth' });
+  showToast('index.html downloaded!');
 });
-
-ge('copyadminbtn').addEventListener('click', function() {
-  fetch(window.location.href)
-    .then(function(r) { return r.text(); })
-    .then(function(html) {
-      ge('copybox').textContent = html;
-      ge('copylabel').textContent = 'admin.html — select all below and copy (Ctrl+A, Ctrl+C)';
-      ge('copyoutput').style.display = 'block';
-      ge('clipboardbtn').onclick = function() {
-        navigator.clipboard.writeText(html).then(function() {
-          showToast('admin.html code copied to clipboard!');
-        }).catch(function() {
-          showToast('Use Ctrl+A then Ctrl+C to copy from the box below');
-        });
-      };
-      ge('copyoutput').scrollIntoView({ behavior: 'smooth' });
-    });
-});
-
-ge('clipboardbtn').addEventListener('click', function() {
-  var text = ge('copybox').textContent;
-  navigator.clipboard.writeText(text).then(function() {
-    showToast('Copied to clipboard!');
-  });
-});
-
-function renderAll() { renderStats(); renderTable(); }
 
 function getIndexTemplate() {
-  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tap 4 Proxies<\/title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>:root{--bg:#0e0e10;--sur:#17171a;--sur2:#1f1f24;--bor:#2e2e36;--acc:#c9a84c;--acc2:#e8c97a;--txt:#e8e6e0;--mut:#7a7870;--cw:200px}*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--txt);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--bor);background:var(--sur);position:sticky;top:0;z-index:100}.logo{font-family:"Cinzel",serif;font-size:20px;font-weight:600;color:var(--acc)}.logo span{color:var(--txt);font-weight:400}#bb{display:flex;align-items:center;gap:8px;background:var(--sur2);border:1px solid var(--bor);color:var(--txt);font-size:14px;padding:8px 16px;border-radius:8px;cursor:pointer}#bb:hover{border-color:var(--acc)}.bc{background:var(--acc);color:#0e0e10;font-size:11px;border-radius:12px;padding:1px 7px}.layout{display:flex;min-height:calc(100vh - 61px)}aside{width:230px;flex-shrink:0;background:var(--sur);border-right:1px solid var(--bor);padding:20px;overflow-y:auto;position:sticky;top:61px;height:calc(100vh - 61px)}.sl{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:8px}.ss{margin-bottom:24px}#search{width:100%;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-size:13px;padding:8px 12px;outline:none}#search:focus{border-color:var(--acc)}.fg2{display:flex;flex-direction:column;gap:3px}.fp{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--mut);border:1px solid transparent}.fp:hover{background:#2e2e3e;color:var(--txt)}.fp.act{background:#26221a;border-color:var(--acc);color:var(--acc)}.fc2{font-size:11px;color:var(--mut);background:var(--sur2);border-radius:8px;padding:1px 6px}main{flex:1;padding:24px 28px}.gh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}.gt{font-family:"Cinzel",serif;font-size:17px;font-weight:400}.gc{font-size:13px;color:var(--mut)}.af{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.chip{display:flex;align-items:center;gap:5px;background:#26221a;border:1px solid var(--acc);color:var(--acc);font-size:12px;padding:3px 9px;border-radius:16px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cw),1fr));gap:16px}.ci{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}.ci:hover{transform:translateY(-2px);border-color:#4a4a55}.ci.il{border-color:var(--acc)}.iw{position:relative;aspect-ratio:5/7;background:var(--sur2);overflow:hidden}.iw img{width:100%;height:100%;object-fit:cover;display:block}.ph2{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px}.ilb{position:absolute;top:6px;right:6px;background:var(--acc);color:#0e0e10;font-size:10px;padding:2px 7px;border-radius:12px;opacity:0}.ci.il .ilb{opacity:1}.info{padding:9px 11px 11px;flex:1;display:flex;flex-direction:column;gap:5px}.cn{font-size:13px;font-weight:500}.cs{font-size:11px;color:var(--mut)}.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}.tag{font-size:10px;background:#252530;color:var(--mut);padding:2px 6px;border-radius:3px}.tag.g{background:#1a2030;color:#6a9fd8}.tag.s{background:#1e2a1a;color:#7aba6a}.code2{font-size:10px;color:var(--mut);font-family:monospace;margin-top:auto;padding-top:3px}.ab{margin:0 11px 11px;padding:7px;border-radius:6px;border:1px solid var(--bor);background:var(--sur2);color:var(--txt);font-size:12px;cursor:pointer;text-align:center}.ab:hover{background:#26221a;border-color:var(--acc);color:var(--acc)}.ci.il .ab{background:#26221a;border-color:var(--acc);color:var(--acc)}.nr{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--mut)}.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200}.ov.open{display:block}.dr{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:var(--sur);border-left:1px solid var(--bor);z-index:201;display:flex;flex-direction:column;transition:right .3s;padding:24px 20px;gap:16px}.dr.open{right:0}.dh{display:flex;align-items:center;justify-content:space-between}.dt{font-family:"Cinzel",serif;font-size:16px;color:var(--acc)}.xb{background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer}.li2{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px}.le{display:flex;align-items:center;gap:10px;background:var(--sur2);border:1px solid var(--bor);border-radius:6px;padding:9px 11px}.lei{flex:1;min-width:0}.len{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lec{font-size:11px;color:var(--mut);font-family:monospace}.lr{background:none;border:none;color:var(--mut);font-size:15px;cursor:pointer}.lr:hover{color:#e05555}.cow{display:flex;flex-direction:column;gap:8px}.col{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em}.co{background:#0a0a0c;border:1px solid var(--bor);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--acc2);max-height:140px;overflow-y:auto;white-space:pre}.cpb{padding:12px;border-radius:8px;border:1px solid var(--acc);background:#26221a;color:var(--acc);font-size:14px;cursor:pointer;text-align:center;width:100%}.cpb:hover{background:var(--acc);color:#0e0e10}.cpb:disabled{opacity:.4}.dh2{font-size:11px;color:var(--mut);text-align:center}.dh2 strong{color:#7289da}.emp{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mut);font-size:14px;text-align:center}@media(max-width:680px){aside{display:none}main{padding:16px}:root{--cw:150px}.dr{width:100vw}}<\/style><\/head><body><header><div class="logo">Tap 4 <span>Proxies<\/span><\/div><button id="bb" onclick="openD()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"\/><line x1="3" y1="6" x2="21" y2="6"\/><path d="M16 10a4 4 0 01-8 0"\/><\/svg>My List <span class="bc" id="bc">0<\/span><\/button><\/header><div class="layout"><aside><div class="ss"><div class="sl">Search<\/div><input type="text" id="search" placeholder="Card name..." oninput="applyF()"><\/div><div class="ss"><div class="sl">Category<\/div><div class="fg2" id="sf"><\/div><\/div><div class="ss"><div class="sl">Theme<\/div><div class="fg2" id="cf"><\/div><\/div><\/aside><main><div class="gh"><div class="gt" id="gt">All Cards<\/div><div class="gc" id="gc"><\/div><\/div><div class="af" id="af"><\/div><div class="grid" id="grid"><\/div><\/main><\/div><div class="ov" id="ov" onclick="closeD()"><\/div><div class="dr" id="dr"><div class="dh"><div class="dt">My Order List<\/div><button class="xb" onclick="closeD()">x<\/button><\/div><div class="li2" id="li"><\/div><div class="cow"><div class="col">Paste into Discord<\/div><div class="co" id="co">(none)<\/div><button class="cpb" id="cpb" onclick="cpList()" disabled>Copy Order List<\/button><div class="dh2">Paste into <strong>#orders<\/strong> on Discord<\/div><\/div><\/div><script>var CARDS = [];var ml=[],aS=null,aC=null;function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):""}function bf(){var sec=[];CARDS.forEach(function(c){if(sec.indexOf(c.section)<0)sec.push(c.section)});sec.sort();var ch=[];CARDS.forEach(function(c){c.chars.forEach(function(x){if(ch.indexOf(x)<0)ch.push(x)})});ch.sort();mk("sf",sec,function(){return aS},function(v){aS=v},false);mk("cf",ch,function(){return aC},function(v){aC=v},true)}function mk(id,items,gA,sA,iC){var el=document.getElementById(id);if(!el)return;el.innerHTML="";if(!items.length){el.innerHTML="<div style=\'font-size:12px;color:var(--mut);padding:4px 0\'>None yet<\/div>";return}items.forEach(function(item){var cnt=CARDS.filter(function(c){return iC?c.chars.indexOf(item)>=0:c.section===item}).length;var p=document.createElement("div");p.className="fp"+(gA()===item?" act":"");p.innerHTML="<span>"+(iC?"#"+item:cap(item))+"<\/span><span class=\'fc2\'>"+cnt+"<\/span>";p.onclick=function(){sA(gA()===item?null:item);bf();applyF()};el.appendChild(p)})}function tryImg(img,b){var u=b.toUpperCase();var tries=["/images/"+u+".PNG","/images/"+u+".JPG","/images/"+b+".png","/images/"+b+".jpg"];var cur=img.src;var found=-1;for(var i=0;i<tries.length;i++){if(cur.indexOf(tries[i])>=0){found=i;break}}var nxt=tries[found+1];if(nxt){img.src=nxt}else{img.style.display="none";img.nextElementSibling.style.display="flex"}}function applyF(){var q=document.getElementById("search").value.trim().toLowerCase();var f=CARDS.filter(function(c){if(aS&&c.section!==aS)return false;if(aC&&c.chars.indexOf(aC)<0)return false;if(q){var h=[c.name,c.art,c.section].concat(c.chars).concat([c.code]).join(" ").toLowerCase();if(h.indexOf(q)<0)return false}return true});document.getElementById("gt").textContent=aS?cap(aS)+" Cards":"All Cards";document.getElementById("gc").textContent=f.length+" card"+(f.length!==1?"s":"");var af=document.getElementById("af");af.innerHTML="";function chip(l,cl){var c=document.createElement("div");c.className="chip";c.textContent=l+" x";c.onclick=function(){cl();bf();applyF()};af.appendChild(c)}if(aS)chip(cap(aS),function(){aS=null});if(aC)chip("#"+aC,function(){aC=null});if(q)chip(\'"\'+q+\'"\',function(){document.getElementById("search").value=""});var g=document.getElementById("grid");g.innerHTML="";if(!CARDS.length){g.innerHTML="<div class=\'nr\'><h3>No cards yet<\/h3><p>Use admin panel to add cards<\/p><\/div>";return}if(!f.length){g.innerHTML="<div class=\'nr\'><h3>No results<\/h3><p>Try different filters<\/p><\/div>";return}f.forEach(function(card){var il=ml.indexOf(card.id)>=0;var el=document.createElement("div");el.className="ci"+(il?" il":"");el.id="ci-"+card.id;var b=card.code.toLowerCase();var src=card.image||"/images/"+card.code+".PNG";el.innerHTML="<div class=\'iw\'><img src=\'"+src+"\' alt=\'"+card.art+"\' loading=\'lazy\' onerror=\'tryImg(this,\\""+b+"\\")\\'><div class=\'ph2\' style=\'display:none\'>&#x1F0CF;<\/div><span class=\'ilb\'>In List<\/span><\/div><div class=\'info\'><div class=\'cn\'>"+card.name+"<\/div><div class=\'cs\'>Art: "+card.art+"<\/div><div class=\'tags\'><span class=\'tag g\'>MTG<\/span><span class=\'tag s\'>"+cap(card.section)+"<\/span>"+card.chars.slice(0,2).map(function(c){return"<span class=\'tag\'>#"+c+"<\/span>"}).join("")+"<\/div><div class=\'code2\'>"+card.code+"<\/div><\/div><button class=\'ab\' data-id=\'"+card.id+"\'"+(il?" style=\'background:#26221a;border-color:var(--acc);color:var(--acc)\'":" ")+">\"+(il?\"In Your List\":\"+ Add to List\")+\"<\/button>\";g.appendChild(el)})}document.getElementById(\"grid\").addEventListener(\"click\",function(e){var btn=e.target.closest(\".ab\");if(!btn)return;var id=btn.getAttribute(\"data-id\");ml=ml.indexOf(id)>=0?ml.filter(function(x){return x!==id}):ml.concat([id]);document.getElementById(\"bc\").textContent=ml.length;applyF();rdraw()});function rl(id){ml=ml.filter(function(x){return x!==id});document.getElementById(\"bc\").textContent=ml.length;applyF();rdraw()}function openD(){rdraw();document.getElementById(\"ov\").classList.add(\"open\");document.getElementById(\"dr\").classList.add(\"open\")}function closeD(){document.getElementById(\"ov\").classList.remove(\"open\");document.getElementById(\"dr\").classList.remove(\"open\")}function rdraw(){var li=document.getElementById(\"li\"),co=document.getElementById(\"co\"),cpb=document.getElementById(\"cpb\");if(!ml.length){li.innerHTML=\"<div class=\'emp\'><div style=\'font-size:32px;opacity:.4\'>&#x1F0CF;<\/div><div>Add cards to your list<\/div><\/div>\";co.textContent=\"(none)\";cpb.disabled=true;return}cpb.disabled=false;li.innerHTML=\"\";var lines=[];ml.forEach(function(id){var card=CARDS.find(function(c){return c.id===id});if(!card)return;lines.push(card.code);var e=document.createElement(\"div\");e.className=\"le\";e.innerHTML=\"<div class=\'lei\'><div class=\'len\'>\"+card.name+\" - \"+card.art+\"<\/div><div class=\'lec\'>\"+card.code+\"<\/div><\/div><button class=\'lr\' data-id=\'\"+ card.id+\"\'> x<\/button>\";li.appendChild(e)});co.textContent=lines.join(\"\\\\n\");document.getElementById(\"li\").addEventListener(\"click\",function(e){var btn=e.target.closest(\".lr\");if(!btn)return;rl(btn.getAttribute(\"data-id\"))})}function cpList(){var lines=ml.map(function(id){var c=CARDS.find(function(x){return x.id===id});return c?c.code:null}).filter(Boolean).join(\"\\\\n\");navigator.clipboard.writeText(lines).then(function(){var b=document.getElementById(\"cpb\");b.textContent=\"Copied!\";setTimeout(function(){b.textContent=\"Copy Order List\"},2000)})}bf();applyF();<\/script><\/body><\/html>';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tap 4 Proxies<\/title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>:root{--bg:#0e0e10;--sur:#17171a;--sur2:#1f1f24;--bor:#2e2e36;--acc:#c9a84c;--acc2:#e8c97a;--txt:#e8e6e0;--mut:#7a7870;--cw:200px}*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--txt);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--bor);background:var(--sur);position:sticky;top:0;z-index:100}.logo{font-family:"Cinzel",serif;font-size:20px;font-weight:600;color:var(--acc)}.logo span{color:var(--txt);font-weight:400}#bb{display:flex;align-items:center;gap:8px;background:var(--sur2);border:1px solid var(--bor);color:var(--txt);font-size:14px;padding:8px 16px;border-radius:8px;cursor:pointer}#bb:hover{border-color:var(--acc)}.bc{background:var(--acc);color:#0e0e10;font-size:11px;border-radius:12px;padding:1px 7px}.layout{display:flex;min-height:calc(100vh - 61px)}aside{width:230px;flex-shrink:0;background:var(--sur);border-right:1px solid var(--bor);padding:20px;overflow-y:auto;position:sticky;top:61px;height:calc(100vh - 61px)}.sl{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:8px}.ss{margin-bottom:24px}#search{width:100%;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-size:13px;padding:8px 12px;outline:none}#search:focus{border-color:var(--acc)}.fg2{display:flex;flex-direction:column;gap:3px}.fp{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--mut);border:1px solid transparent}.fp:hover{background:#2e2e3e;color:var(--txt)}.fp.act{background:#26221a;border-color:var(--acc);color:var(--acc)}.fc2{font-size:11px;color:var(--mut);background:var(--sur2);border-radius:8px;padding:1px 6px}main{flex:1;padding:24px 28px}.gh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}.gt{font-family:"Cinzel",serif;font-size:17px;font-weight:400}.gc{font-size:13px;color:var(--mut)}.af{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.chip{display:flex;align-items:center;gap:5px;background:#26221a;border:1px solid var(--acc);color:var(--acc);font-size:12px;padding:3px 9px;border-radius:16px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cw),1fr));gap:16px}.ci{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}.ci:hover{transform:translateY(-2px);border-color:#4a4a55}.ci.il{border-color:var(--acc)}.iw{position:relative;aspect-ratio:5/7;background:var(--sur2);overflow:hidden}.iw img{width:100%;height:100%;object-fit:cover;display:block}.ph2{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px}.ilb{position:absolute;top:6px;right:6px;background:var(--acc);color:#0e0e10;font-size:10px;padding:2px 7px;border-radius:12px;opacity:0}.ci.il .ilb{opacity:1}.info{padding:9px 11px 11px;flex:1;display:flex;flex-direction:column;gap:5px}.cn{font-size:13px;font-weight:500}.cs{font-size:11px;color:var(--mut)}.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}.tag{font-size:10px;background:#252530;color:var(--mut);padding:2px 6px;border-radius:3px}.tag.g{background:#1a2030;color:#6a9fd8}.tag.s{background:#1e2a1a;color:#7aba6a}.code2{font-size:10px;color:var(--mut);font-family:monospace;margin-top:auto;padding-top:3px}.ab{margin:0 11px 11px;padding:7px;border-radius:6px;border:1px solid var(--bor);background:var(--sur2);color:var(--txt);font-size:12px;cursor:pointer;text-align:center}.ab:hover{background:#26221a;border-color:var(--acc);color:var(--acc)}.ci.il .ab{background:#26221a;border-color:var(--acc);color:var(--acc)}.nr{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--mut)}.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200}.ov.open{display:block}.dr{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:var(--sur);border-left:1px solid var(--bor);z-index:201;display:flex;flex-direction:column;transition:right .3s;padding:24px 20px;gap:16px}.dr.open{right:0}.dh{display:flex;align-items:center;justify-content:space-between}.dt{font-family:"Cinzel",serif;font-size:16px;color:var(--acc)}.xb{background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer}.li2{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px}.le{display:flex;align-items:center;gap:10px;background:var(--sur2);border:1px solid var(--bor);border-radius:6px;padding:9px 11px}.lei{flex:1;min-width:0}.len{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lec{font-size:11px;color:var(--mut);font-family:monospace}.lr{background:none;border:none;color:var(--mut);font-size:15px;cursor:pointer}.lr:hover{color:#e05555}.cow{display:flex;flex-direction:column;gap:8px}.col{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em}.co{background:#0a0a0c;border:1px solid var(--bor);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--acc2);max-height:140px;overflow-y:auto;white-space:pre}.cpb{padding:12px;border-radius:8px;border:1px solid var(--acc);background:#26221a;color:var(--acc);font-size:14px;cursor:pointer;text-align:center;width:100%}.cpb:hover{background:var(--acc);color:#0e0e10}.cpb:disabled{opacity:.4}.dh2{font-size:11px;color:var(--mut);text-align:center}.dh2 strong{color:#7289da}.emp{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mut);font-size:14px;text-align:center}@media(max-width:680px){aside{display:none}main{padding:16px}:root{--cw:150px}.dr{width:100vw}}<\/style><\/head><body><header><div class="logo">Tap 4 <span>Proxies<\/span><\/div><button id="bb" onclick="openD()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"\/><line x1="3" y1="6" x2="21" y2="6"\/><path d="M16 10a4 4 0 01-8 0"\/><\/svg>My List <span class="bc" id="bc">0<\/span><\/button><\/header><div class="layout"><aside><div class="ss"><div class="sl">Search<\/div><input type="text" id="search" placeholder="Card name..." oninput="applyF()"><\/div><div class="ss"><div class="sl">Category<\/div><div class="fg2" id="sf"><\/div><\/div><div class="ss"><div class="sl">Theme<\/div><div class="fg2" id="cf"><\/div><\/div><\/aside><main><div class="gh"><div class="gt" id="gt">All Cards<\/div><div class="gc" id="gc"><\/div><\/div><div class="af" id="af"><\/div><div class="grid" id="grid"><\/div><\/main><\/div><div class="ov" id="ov" onclick="closeD()"><\/div><div class="dr" id="dr"><div class="dh"><div class="dt">My Order List<\/div><button class="xb" onclick="closeD()">x<\/button><\/div><div class="li2" id="li"><\/div><div class="cow"><div class="col">Paste into Discord<\/div><div class="co" id="co">(none)<\/div><button class="cpb" id="cpb" onclick="cpList()" disabled>Copy Order List<\/button><div class="dh2">Paste into <strong>#orders<\/strong> on Discord<\/div><\/div><\/div><script>var CARDS = [];var ml=[],aS=null,aC=null;function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):""}function bf(){var sec=[];CARDS.forEach(function(c){if(sec.indexOf(c.section)<0)sec.push(c.section)});sec.sort();var ch=[];CARDS.forEach(function(c){c.chars.forEach(function(x){if(ch.indexOf(x)<0)ch.push(x)})});ch.sort();mk("sf",sec,function(){return aS},function(v){aS=v},false);mk("cf",ch,function(){return aC},function(v){aC=v},true)}function mk(id,items,gA,sA,iC){var el=document.getElementById(id);if(!el)return;el.innerHTML="";if(!items.length){el.innerHTML="<div style=\'font-size:12px;color:var(--mut);padding:4px 0\'>None yet<\/div>";return}items.forEach(function(item){var cnt=CARDS.filter(function(c){return iC?c.chars.indexOf(item)>=0:c.section===item}).length;var p=document.createElement("div");p.className="fp"+(gA()===item?" act":"");p.innerHTML="<span>"+(iC?"#"+item:cap(item))+"<\/span><span class=\'fc2\'>"+cnt+"<\/span>";p.onclick=function(){sA(gA()===item?null:item);bf();applyF()};el.appendChild(p)})}function tryImg(img,b){var u=b.toUpperCase();var tries=["/images/"+u+".PNG","/images/"+u+".JPG","/images/"+b+".png","/images/"+b+".jpg"];var cur=img.src;var found=-1;for(var i=0;i<tries.length;i++){if(cur.indexOf(tries[i])>=0){found=i;break}}var nxt=tries[found+1];if(nxt){img.src=nxt}else{img.style.display="none";img.nextElementSibling.style.display="flex"}}function applyF(){var q=document.getElementById("search").value.trim().toLowerCase();var f=CARDS.filter(function(c){if(aS&&c.section!==aS)return false;if(aC&&c.chars.indexOf(aC)<0)return false;if(q){var h=[c.name,c.art,c.section].concat(c.chars).concat([c.code]).join(" ").toLowerCase();if(h.indexOf(q)<0)return false}return true});document.getElementById("gt").textContent=aS?cap(aS)+" Cards":"All Cards";document.getElementById("gc").textContent=f.length+" card"+(f.length!==1?"s":"");var af=document.getElementById("af");af.innerHTML="";function chip(l,cl){var c=document.createElement("div");c.className="chip";c.textContent=l+" x";c.onclick=function(){cl();bf();applyF()};af.appendChild(c)}if(aS)chip(cap(aS),function(){aS=null});if(aC)chip("#"+aC,function(){aC=null});if(q)chip(\'"\'+q+\'"\',function(){document.getElementById("search").value=""});var g=document.getElementById("grid");g.innerHTML="";if(!CARDS.length){g.innerHTML="<div class=\'nr\'><h3>No cards yet<\/h3><p>Use admin panel to add cards<\/p><\/div>";return}if(!f.length){g.innerHTML="<div class=\'nr\'><h3>No results<\/h3><p>Try different filters<\/p><\/div>";return}f.forEach(function(card){var il=ml.indexOf(card.id)>=0;var el=document.createElement("div");el.className="ci"+(il?" il":"");el.id="ci-"+card.id;var b=card.code.toLowerCase();var src=card.image||"/images/"+card.code+".PNG";el.innerHTML="<div class=\'iw\'><img src=\'"+src+"\' alt=\'"+card.art+"\' loading=\'lazy\' onerror=\'tryImg(this,\\""+b+"\\")\'><div class=\'ph2\' style=\'display:none\'>&#x1F0CF;<\/div><span class=\'ilb\'>In List<\/span><\/div><div class=\'info\'><div class=\'cn\'>"+card.name+"<\/div><div class=\'cs\'>Art: "+card.art+"<\/div><div class=\'tags\'><span class=\'tag g\'>MTG<\/span><span class=\'tag s\'>"+cap(card.section)+"<\/span>"+card.chars.slice(0,2).map(function(c){return"<span class=\'tag\'>#"+c+"<\/span>"}).join("")+"<\/div><div class=\'code2\'>"+card.code+"<\/div><\/div><button class=\'ab\' data-id=\'"+card.id+"\'"+(il?" style=\'background:#26221a;border-color:var(--acc);color:var(--acc)\'":" ")+">"+(il?"In Your List":"+ Add to List")+"<\/button>";g.appendChild(el)})}document.getElementById("grid").addEventListener("click",function(e){var btn=e.target.closest(".ab");if(!btn)return;var id=btn.getAttribute("data-id");ml=ml.indexOf(id)>=0?ml.filter(function(x){return x!==id}):ml.concat([id]);document.getElementById("bc").textContent=ml.length;applyF();rdraw()});function rl(id){ml=ml.filter(function(x){return x!==id});document.getElementById("bc").textContent=ml.length;applyF();rdraw()}function openD(){rdraw();document.getElementById("ov").classList.add("open");document.getElementById("dr").classList.add("open")}function closeD(){document.getElementById("ov").classList.remove("open");document.getElementById("dr").classList.remove("open")}function rdraw(){var li=document.getElementById("li"),co=document.getElementById("co"),cpb=document.getElementById("cpb");if(!ml.length){li.innerHTML="<div class=\'emp\'><div style=\'font-size:32px;opacity:.4\'>&#x1F0CF;<\/div><div>Add cards to your list<\/div><\/div>";co.textContent="(none)";cpb.disabled=true;return}cpb.disabled=false;li.innerHTML="";var lines=[];ml.forEach(function(id){var card=CARDS.find(function(c){return c.id===id});if(!card)return;lines.push(card.code);var e=document.createElement("div");e.className="le";e.innerHTML="<div class=\'lei\'><div class=\'len\'>"+card.name+" - "+card.art+"<\/div><div class=\'lec\'>"+card.code+"<\/div><\/div><button class=\'lr\' data-id=\'"+card.id+"\'>x<\/button>";li.appendChild(e)});co.textContent=lines.join("\\n");document.getElementById("li").addEventListener("click",function(e){var btn=e.target.closest(".lr");if(!btn)return;rl(btn.getAttribute("data-id"))})}function cpList(){var lines=ml.map(function(id){var c=CARDS.find(function(x){return x.id===id});return c?c.code:null}).filter(Boolean).join("\\n");navigator.clipboard.writeText(lines).then(function(){var b=document.getElementById("cpb");b.textContent="Copied!";setTimeout(function(){b.textContent="Copy Order List"},2000)})}bf();applyF();<\/script><\/body><\/html>';
 }
+
+function renderAll() { renderStats(); renderTable(); }
 </script>
 </body>
 </html>
