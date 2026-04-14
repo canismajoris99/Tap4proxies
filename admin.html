@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0049)file:///C:/Users/nican/Downloads/admin_v6_12.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Tap 4 Proxies Admin</title>
 <style>
@@ -59,7 +59,7 @@ tr:hover td{background:#1a1a1e}
 .hint{font-size:13px;color:#7a7870;line-height:1.6;margin-bottom:12px}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:#17171a;border:1px solid #2e2e36;border-radius:14px;padding:24px;width:560px;max-width:95vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.modal{background:#17171a;border:1px solid #2e2e36;border-radius:14px;padding:24px;width:580px;max-width:95vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between}
 .modal-ttl{font-size:16px;color:#c9a84c}
 .modal-x{background:none;border:none;color:#7a7870;font-size:20px;cursor:pointer}
@@ -71,21 +71,38 @@ tr:hover td{background:#1a1a1e}
 .c-black{background:#1a1a1a;color:#aaa;border-color:#444}
 .c-red{background:#4a1515;color:#ff7a7a;border-color:#8a2a2a}
 .c-green{background:#1a3a1a;color:#7aba7a;border-color:#2a6a2a}
-.c-gold{background:#3a2a0a;color:#e8c97a;border-color:#8a6a1a}
+.c-gamechanger{background:#1a0a2e;color:#c9a4ff;border-color:#6a3aaa}
 .c-colorless{background:#2a2a2a;color:#bbb;border-color:#555}
 .ctag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin:2px}
+.tag-manager{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding:10px;background:#0a0a0c;border:1px solid #2e2e36;border-radius:8px;min-height:36px}
+.tag-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;cursor:pointer;transition:all .15s;user-select:none}
+.tag-pill.visible{background:#1e2a1a;color:#7aba6a;border:1px solid #2a5a2a}
+.tag-pill.hidden{background:#2a2a2a;color:#555;border:1px solid #3a3a3a;text-decoration:line-through}
+.tag-pill .tog{font-size:10px;opacity:.7}
+.sec-tag-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sec-tag{display:inline-flex;align-items:center;gap:4px;background:#1a2e1a;color:#7aba6a;border:1px solid #2a5a2a;padding:3px 10px;border-radius:20px;font-size:11px}
+.sec-tag.search-only{background:#1a1a2e;color:#9a8aff;border-color:#3a3a7a}
+.sec-tag .rem{cursor:pointer;opacity:.6;font-size:12px}
+.sec-tag .rem:hover{opacity:1;color:#e05555}
+.add-tag-row{display:flex;gap:6px;margin-top:6px}
+.add-tag-row input{flex:1;padding:7px 10px;font-size:12px}
 @media(max-width:600px){.g2{grid-template-columns:1fr}.full{grid-column:1}header{padding:12px 16px}.wrap{padding:16px}}
+.alpha-bar{display:flex;flex-wrap:wrap;gap:3px;padding:12px 16px;border-bottom:1px solid #2e2e36;background:#0e0e10}
+.alpha-btn{padding:4px 8px;font-size:12px;border-radius:5px;border:1px solid #2e2e36;background:#1f1f24;color:#7a7870;cursor:pointer;min-width:28px;text-align:center;transition:all .15s}
+.alpha-btn:hover{border-color:#c9a84c;color:#c9a84c}
+.alpha-btn.active{background:#26221a;border-color:#c9a84c;color:#c9a84c;font-weight:500}
+.alpha-btn.empty{opacity:.25;cursor:default}
+.alpha-btn.empty:hover{border-color:#2e2e36;color:#7a7870}
+.card-letter-header{padding:6px 12px;font-size:11px;font-weight:500;color:#c9a84c;background:#0e0e10;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #1e1e22;position:sticky;top:0;z-index:1}
 </style>
 </head>
 <body>
+
 <div id="L">
   <div class="box">
     <h2>Tap 4 Proxies</h2>
     <p class="sub">Admin access only</p>
-    <div>
-      <span class="lbl">Password</span>
-      <input type="password" id="pw" placeholder="Enter password">
-    </div>
+    <div><span class="lbl">Password</span><input type="password" id="pw" placeholder="Enter password"></div>
     <div class="err" id="err">Wrong password. Try again.</div>
     <button class="bigbtn" id="signin">Sign In</button>
   </div>
@@ -96,7 +113,10 @@ tr:hover td{background:#1a1a1e}
     <div class="logo">Tap 4 Proxies / Admin</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="sbtn p" id="dlbtn">Download index.html</button>
-      <a href="index.html" class="sbtn" style="text-decoration:none">View Site</a>
+      <button class="sbtn g" id="exportbtn">↓ Export Cards</button>
+      <button class="sbtn" id="importbtn" style="border-color:#5a4a9a;color:#9a8aff">↑ Import Cards</button>
+      <input type="file" id="importfile" accept=".json" style="display:none">
+      <a href="file:///C:/Users/nican/Downloads/index.html" class="sbtn" style="text-decoration:none">View Site</a>
       <button class="sbtn d" id="logoutbtn">Log Out</button>
     </div>
   </header>
@@ -108,11 +128,45 @@ tr:hover td{background:#1a1a1e}
     </div>
 
     <div class="panel">
+      <div class="ph">Backup &amp; Restore</div>
+      <div class="pb">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
+          <div style="flex:1;min-width:220px;background:#0a0a0c;border:1px solid #2e2e36;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:500;color:#5a9a5a">↓ Export Cards</div>
+            <div style="font-size:12px;color:#7a7870;line-height:1.6">Download all your cards as a JSON backup file. Keep this somewhere safe — it's your only backup if the browser data is cleared.</div>
+            <button class="sbtn g" id="exportbtn2" style="margin-top:4px">Download cards-backup.json</button>
+          </div>
+          <div style="flex:1;min-width:220px;background:#0a0a0c;border:1px solid #2e2e36;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:500;color:#9a8aff">↑ Import Cards</div>
+            <div style="font-size:12px;color:#7a7870;line-height:1.6">Restore from a backup JSON file. Choose whether to <strong style="color:#e8e6e0">merge</strong> with existing cards or <strong style="color:#e05555">replace</strong> everything.</div>
+            <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+              <button class="sbtn" id="mergebtn" style="border-color:#5a4a9a;color:#9a8aff;flex:1">Merge into existing</button>
+              <button class="sbtn d" id="replacebtn" style="flex:1">Replace all cards</button>
+            </div>
+            <input type="file" id="importfile2" accept=".json" style="display:none">
+            <div id="import-status" style="font-size:11px;color:#7a7870;min-height:16px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
       <div class="ph">Bulk Import from Images</div>
       <div class="pb">
-        <p class="hint">Select all your image files at once. Auto-creates card entries from filenames.</p>
+        <p class="hint">Select all your image files. Auto-creates card entries from filenames.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:14px;padding:14px;background:#0a0a0c;border:1px solid #2e2e36;border-radius:8px">
+          <div class="fg" style="flex:1;min-width:160px">
+            <span class="lbl">Category Prefix (optional)</span>
+            <input type="text" id="imp-cat-prefix" placeholder="e.g. marvel, anime, lotr" style="width:100%">
+            <div style="font-size:11px;color:#7a7870;margin-top:4px">Added as category to every imported card. Overrides filename detection.</div>
+          </div>
+          <div class="fg" style="flex:1;min-width:160px">
+            <span class="lbl">Quick Category Buttons</span>
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px" id="cat-quick-btns"></div>
+          </div>
+        </div>
         <div class="dz" id="dz">Click to select images or drag and drop<br><span style="font-size:12px">PNG, JPG files</span></div>
-        <input type="file" id="fi" multiple accept=".png,.jpg,.jpeg,.webp" style="display:none">
+        <input type="file" id="fi" multiple="" accept=".png,.jpg,.jpeg,.webp" style="display:none">
         <div id="impprev" style="display:none;margin-top:14px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
             <span id="impcnt" style="font-size:13px;color:#7a7870"></span>
@@ -123,7 +177,7 @@ tr:hover td{background:#1a1a1e}
           </div>
           <div style="overflow-x:auto">
             <table class="imptbl">
-              <thead><tr><th>Filename</th><th>MTG Card Name</th><th>Category</th><th>Colors</th><th>Status</th><th></th></tr></thead>
+              <thead><tr><th>Filename</th><th>MTG Card Name</th><th>Category</th><th>Colors</th><th>Type</th><th>Level</th><th>Status</th><th></th></tr></thead>
               <tbody id="imptb"></tbody>
             </table>
           </div>
@@ -138,7 +192,9 @@ tr:hover td{background:#1a1a1e}
           <div class="fg"><span class="lbl">MTG Card Name</span><input type="text" id="fn" placeholder="e.g. Lightning Bolt"></div>
           <div class="fg"><span class="lbl">Art / Character</span><input type="text" id="fa" placeholder="e.g. Iron Man"></div>
           <div class="fg"><span class="lbl">Category</span><input type="text" id="fc" placeholder="e.g. Marvel"></div>
-          <div class="fg"><span class="lbl">Tags (comma separated)</span><input type="text" id="ft" placeholder="e.g. ironman, red"></div>
+          <div class="fg"><span class="lbl">Secondary Tags (comma separated)</span><input type="text" id="ft" placeholder="e.g. avengers, ironman"></div>
+          <div class="fg"><span class="lbl">Card Type</span><select id="fct" style="width:100%;background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;color:#e8e6e0;font-size:14px;padding:10px;outline:none"><option value="">-- None --</option><option>Land</option><option>Creature</option><option>Artifact</option><option>Enchantment</option><option>Instant</option><option>Sorcery</option></select></div>
+          <div class="fg"><span class="lbl">Power Level</span><select id="fpwr" style="width:100%;background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;color:#e8e6e0;font-size:14px;padding:10px;outline:none"><option value="">-- None --</option><option>Game Changer</option><option>Staple</option><option>Casual</option></select></div>
           <div class="fg full">
             <span class="lbl">Card Colors</span>
             <div class="color-grid" id="add-colors">
@@ -147,7 +203,7 @@ tr:hover td{background:#1a1a1e}
               <button type="button" class="color-btn c-black" data-color="black">Black</button>
               <button type="button" class="color-btn c-red" data-color="red">Red</button>
               <button type="button" class="color-btn c-green" data-color="green">Green</button>
-              <button type="button" class="color-btn c-gold" data-color="gold">Gold/Multi</button>
+              <button type="button" class="color-btn c-gold" data-color="gamechanger">Game Changer</button>
               <button type="button" class="color-btn c-colorless" data-color="colorless">Colorless</button>
             </div>
           </div>
@@ -165,9 +221,10 @@ tr:hover td{background:#1a1a1e}
         <span>All Cards (<span id="cnt">0</span>)</span>
         <input type="text" id="srch" placeholder="Search..." style="width:180px;padding:6px 10px;font-size:13px;background:#1f1f24;border:1px solid #2e2e36;border-radius:6px;color:#e8e6e0;outline:none">
       </div>
-      <div style="overflow-x:auto">
+      <div class="alpha-bar" id="alpha-bar"></div>
+      <div style="overflow-x:auto;max-height:600px;overflow-y:auto" id="table-scroll">
         <table>
-          <thead><tr><th>Name</th><th>Art</th><th>Category</th><th>Colors</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead>
+          <thead><tr><th style="position:sticky;top:0;background:#17171a;z-index:2">Name</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Art</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Category</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Colors</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Code</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Status</th><th style="position:sticky;top:0;background:#17171a;z-index:2">Actions</th></tr></thead>
           <tbody id="tb"></tbody>
         </table>
       </div>
@@ -180,13 +237,12 @@ tr:hover td{background:#1a1a1e}
   <div class="modal">
     <div class="modal-hdr">
       <div class="modal-ttl">Edit Card</div>
-      <button class="modal-x" id="modalclose">&#x2715;</button>
+      <button class="modal-x" id="modalclose">✕</button>
     </div>
     <div class="g2">
       <div class="fg"><span class="lbl">MTG Card Name</span><input type="text" id="e-name"></div>
       <div class="fg"><span class="lbl">Art / Character</span><input type="text" id="e-art"></div>
       <div class="fg"><span class="lbl">Category</span><input type="text" id="e-cat"></div>
-      <div class="fg"><span class="lbl">Tags (comma separated)</span><input type="text" id="e-tags"></div>
       <div class="fg full">
         <span class="lbl">Card Colors</span>
         <div class="color-grid" id="edit-colors">
@@ -195,9 +251,35 @@ tr:hover td{background:#1a1a1e}
           <button type="button" class="color-btn c-black" data-color="black">Black</button>
           <button type="button" class="color-btn c-red" data-color="red">Red</button>
           <button type="button" class="color-btn c-green" data-color="green">Green</button>
-          <button type="button" class="color-btn c-gold" data-color="gold">Gold/Multi</button>
+          <button type="button" class="color-btn c-gold" data-color="gamechanger">Game Changer</button>
           <button type="button" class="color-btn c-colorless" data-color="colorless">Colorless</button>
         </div>
+      </div>
+      <div class="fg full">
+        <span class="lbl">Visible Tags — click to hide/show on card (includes category)</span>
+        <div class="tag-manager" id="e-auto-tags"></div>
+        <div style="font-size:11px;color:#7a7870;margin-top:4px">Green = visible. Strikethrough = hidden. Still searchable either way.</div>
+      </div>
+      <div class="fg full">
+        <span class="lbl">Secondary Tags — show as green tags on card</span>
+        <div class="sec-tag-wrap" id="e-sec-tags"></div>
+        <div class="add-tag-row">
+          <input type="text" id="e-new-tag" placeholder="e.g. nba, larry, basketball">
+          <button class="sbtn g" id="e-add-tag-btn">Add</button>
+        </div>
+      </div>
+      <div class="fg full">
+        <span class="lbl">Search-only Tags — never shown on card</span>
+        <div class="sec-tag-wrap" id="e-search-tags"></div>
+        <div class="add-tag-row">
+          <input type="text" id="e-new-search-tag" placeholder="e.g. sponge bob, alternate spelling">
+          <button class="sbtn" id="e-add-search-tag-btn" style="border-color:#5a4a9a;color:#9a8aff">Add</button>
+        </div>
+        <div style="font-size:11px;color:#7a7870;margin-top:4px">Never visible. Helps customers find card via search.</div>
+      </div>
+      <div class="fg full" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="fg"><span class="lbl">Card Type</span><select id="ect" style="width:100%;background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;color:#e8e6e0;font-size:14px;padding:10px;outline:none"><option value="">-- None --</option><option>Land</option><option>Creature</option><option>Artifact</option><option>Enchantment</option><option>Instant</option><option>Sorcery</option></select></div>
+        <div class="fg"><span class="lbl">Power Level</span><select id="epwr" style="width:100%;background:#1f1f24;border:1px solid #2e2e36;border-radius:8px;color:#e8e6e0;font-size:14px;padding:10px;outline:none"><option value="">-- None --</option><option>Game Changer</option><option>Staple</option><option>Casual</option></select></div>
       </div>
       <div class="fg full"><span class="lbl">Generated Code</span><div class="codebox" id="e-code"></div></div>
     </div>
@@ -209,98 +291,673 @@ tr:hover td{background:#1a1a1e}
 </div>
 
 <div class="toast" id="toast"></div>
-<script>
-var PW = 'B!Gchief';
-var KEY = 't4p_v3';
+<textarea id="idx-tmpl" style="display:none">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1.0"&gt;
+&lt;title&gt;Tap 4 Proxies&lt;/title&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"&gt;
+&lt;style&gt;
+:root{--bg:#0e0e10;--sur:#17171a;--sur2:#1f1f24;--bor:#2e2e36;--acc:#c9a84c;--acc2:#e8c97a;--txt:#e8e6e0;--mut:#7a7870;--cw:200px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--bor);background:var(--sur);position:sticky;top:0;z-index:100}
+.logo{font-family:"Cinzel",serif;font-size:20px;font-weight:600;color:var(--acc)}
+.logo span{color:var(--txt);font-weight:400}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.hdr-select{background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-size:13px;padding:7px 12px;outline:none;cursor:pointer}
+.hdr-select:focus{border-color:var(--acc)}
+#bb{display:flex;align-items:center;gap:8px;background:var(--sur2);border:1px solid var(--bor);color:var(--txt);font-size:14px;padding:8px 16px;border-radius:8px;cursor:pointer}
+#bb:hover{border-color:var(--acc)}
+.bc{background:var(--acc);color:#0e0e10;font-size:11px;border-radius:12px;padding:1px 7px}
+.layout{display:flex;min-height:calc(100vh - 61px)}
+aside{width:240px;flex-shrink:0;background:var(--sur);border-right:1px solid var(--bor);padding:16px;overflow-y:auto;position:sticky;top:61px;height:calc(100vh - 61px)}
+.sb-search{width:100%;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-size:13px;padding:9px 12px;outline:none;box-sizing:border-box;margin-bottom:14px}
+.sb-search:focus{border-color:var(--acc)}
+.sb-section{margin-bottom:10px;border:1px solid var(--bor);border-radius:8px;overflow:hidden}
+.sb-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:var(--sur2);user-select:none}
+.sb-head:hover{color:var(--txt)}
+.sb-head .arr{font-size:10px;transition:transform .2s}
+.sb-head.open .arr{transform:rotate(180deg)}
+.sb-body{padding:6px;display:none}
+.sb-body.open{display:block}
+.fp{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--mut);border:1px solid transparent;transition:all .15s}
+.fp:hover{background:#2e2e3e;color:var(--txt)}
+.fp.act{background:#26221a;border-color:var(--acc);color:var(--acc)}
+.fp .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.fc2{font-size:11px;color:var(--mut);background:var(--sur2);border-radius:8px;padding:1px 6px;min-width:20px;text-align:center}
+.fp.act .fc2{background:#3a3020;color:var(--acc2)}
+.clear-all{width:100%;padding:7px;border-radius:6px;border:1px solid #6a2020;background:transparent;color:#e05555;font-size:12px;cursor:pointer;margin-top:10px;text-align:center;transition:all .15s}
+.clear-all:hover{background:#2a1515}
+main{flex:1;padding:24px 28px;min-width:0}
+.gh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.gt{font-family:"Cinzel",serif;font-size:17px;font-weight:400}
+.gc{font-size:13px;color:var(--mut)}
+.af{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;min-height:0}
+.chip{display:flex;align-items:center;gap:5px;background:#26221a;border:1px solid var(--acc);color:var(--acc);font-size:12px;padding:3px 10px;border-radius:16px;cursor:pointer}
+.chip:hover{background:#2e2818}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cw),1fr));gap:16px}
+.ci{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.ci:hover{transform:translateY(-2px);border-color:#4a4a55}
+.ci.il{border-color:var(--acc)}
+.iw{position:relative;aspect-ratio:5/7;background:var(--sur2);overflow:hidden;cursor:zoom-in}
+.iw img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.ci:hover .iw img{transform:scale(1.04)}
+.ph2{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px}
+.ilb{position:absolute;top:6px;right:6px;background:var(--acc);color:#0e0e10;font-size:10px;padding:2px 7px;border-radius:12px;opacity:0}
+.ci.il .ilb{opacity:1}
+.info{padding:9px 11px 11px;flex:1;display:flex;flex-direction:column;gap:5px}
+.cn{font-size:13px;font-weight:500}
+.cs{font-size:11px;color:var(--mut)}
+.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
+.tag{font-size:10px;background:#252530;color:var(--mut);padding:2px 6px;border-radius:3px}
+.tag.g{background:#1a2030;color:#6a9fd8}
+.tag.s{background:#1e2a1a;color:#7aba6a}
+.tag.sec{background:#1a3a1a;color:#7aba6a;border:1px solid #2a5a2a}
+.tag.white{background:#f0ede0;color:#333}
+.tag.blue{background:#1a3a6a;color:#7ab4ff}
+.tag.black{background:#1a1a1a;color:#aaa}
+.tag.red{background:#4a1515;color:#ff7a7a}
+.tag.green{background:#1a3a1a;color:#7aba7a}
+.tag.colorless{background:#2a2a2a;color:#bbb}
+.tag.gamechanger{background:#1a0a2e;color:#c9a4ff}
+.code2{font-size:10px;color:var(--mut);font-family:monospace;margin-top:auto;padding-top:3px}
+.ab{margin:0 11px 11px;padding:7px;border-radius:6px;border:1px solid var(--bor);background:var(--sur2);color:var(--txt);font-size:12px;cursor:pointer;text-align:center;transition:all .15s}
+.ab:hover{background:#26221a;border-color:var(--acc);color:var(--acc)}
+.ci.il .ab{background:#26221a;border-color:var(--acc);color:var(--acc)}
+.nr{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--mut)}
+.nr h3{font-family:"Cinzel",serif;font-size:18px;margin-bottom:8px;color:var(--txt)}
+.pgbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 0;border-top:1px solid var(--bor);margin-top:16px}
+.pgbar.top{border-top:none;border-bottom:1px solid var(--bor);margin-top:0;margin-bottom:16px;padding-top:0}
+.pg-info{font-size:13px;color:var(--mut)}
+.pg-info strong{color:var(--txt)}
+.pg-btns{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pg-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--bor);background:var(--sur2);color:var(--txt);font-size:13px;cursor:pointer;transition:all .15s;min-width:36px;text-align:center}
+.pg-btn:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+.pg-btn.act{background:#26221a;border-color:var(--acc);color:var(--acc);font-weight:500}
+.pg-btn:disabled{opacity:.35;cursor:default}
+.pg-btn.dots{cursor:default;border-color:transparent;background:transparent}
+.pg-perpage{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut)}
+.pg-perpage select{background:var(--sur2);border:1px solid var(--bor);border-radius:6px;color:var(--txt);font-size:13px;padding:5px 8px;outline:none;cursor:pointer}
+.pg-perpage select:focus{border-color:var(--acc)}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200}
+.ov.open{display:block}
+.dr{position:fixed;top:0;right:-440px;width:420px;max-width:100vw;height:100vh;background:var(--sur);border-left:1px solid var(--bor);z-index:201;display:flex;flex-direction:column;transition:right .3s;padding:24px 20px;gap:16px}
+.dr.open{right:0}
+.dh{display:flex;align-items:center;justify-content:space-between}
+.dt{font-family:"Cinzel",serif;font-size:16px;color:var(--acc)}
+.xb{background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer}
+.li2{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.le{display:flex;align-items:center;gap:10px;background:var(--sur2);border:1px solid var(--bor);border-radius:6px;padding:9px 11px}
+.lei{flex:1;min-width:0}
+.len{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lec{font-size:11px;color:var(--mut);font-family:monospace}
+.lr{background:none;border:none;color:var(--mut);font-size:15px;cursor:pointer}
+.lr:hover{color:#e05555}
+.cow{display:flex;flex-direction:column;gap:8px}
+.col-lbl{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em}
+.co{background:#0a0a0c;border:1px solid var(--bor);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--acc2);max-height:140px;overflow-y:auto;white-space:pre}
+.cpb{padding:12px;border-radius:8px;border:1px solid var(--acc);background:#26221a;color:var(--acc);font-size:14px;cursor:pointer;text-align:center;width:100%}
+.cpb:hover{background:var(--acc);color:#0e0e10}
+.cpb:disabled{opacity:.4}
+.dh2{font-size:11px;color:var(--mut);text-align:center}
+.dh2 strong{color:#7289da}
+.emp{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mut);font-size:14px;text-align:center}
+.cdm-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.cdm-bg.open{display:flex}
+.cdm{background:var(--sur);border:1px solid var(--bor);border-radius:16px;width:800px;max-width:95vw;display:flex;overflow:hidden;position:relative}
+.cdm-img{width:320px;flex-shrink:0;aspect-ratio:5/7;background:var(--sur2);overflow:hidden}
+.cdm-img img{width:100%;height:100%;object-fit:cover;display:block}
+.cdm-info{flex:1;padding:24px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;max-height:560px;box-sizing:border-box}
+.cdm-name{font-family:"Cinzel",serif;font-size:20px;font-weight:600;color:var(--acc)}
+.cdm-sub{font-size:13px;color:var(--mut)}
+.cdm-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;z-index:1}
+.cdm-close:hover{color:var(--txt)}
+.cdm-section{display:flex;flex-direction:column;gap:6px}
+.cdm-label{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
+.cdm-tags{display:flex;flex-wrap:wrap;gap:5px}
+.cdm-tag{font-size:12px;padding:4px 10px;border-radius:12px;background:#252530;color:var(--mut)}
+.cdm-tag.cat{background:#1e2a1a;color:#7aba6a;border:1px solid #2a5a2a}
+.cdm-tag.sec{background:#1a3a1a;color:#7aba6a;border:1px solid #2a5a2a}
+.cdm-tag.col-white{background:#f0ede0;color:#333}
+.cdm-tag.col-blue{background:#1a3a6a;color:#7ab4ff}
+.cdm-tag.col-black{background:#1a1a1a;color:#aaa;border:1px solid #444}
+.cdm-tag.col-red{background:#4a1515;color:#ff7a7a}
+.cdm-tag.col-green{background:#1a3a1a;color:#7aba7a}
+.cdm-tag.col-colorless{background:#2a2a2a;color:#bbb}
+.cdm-tag.col-gamechanger{background:#1a0a2e;color:#c9a4ff;border:1px solid #6a3aaa}
+.cdm-tag.search{background:#1a1a2e;color:#7a7aaa;border:1px solid #3a3a5a}
+.cdm-code{font-family:monospace;font-size:12px;color:var(--mut);background:#0a0a0c;padding:8px 12px;border-radius:6px;border:1px solid var(--bor)}
+.cdm-add{padding:12px;border-radius:8px;border:1px solid var(--acc);background:#26221a;color:var(--acc);font-size:14px;font-weight:500;cursor:pointer;text-align:center;margin-top:auto;transition:all .15s}
+.cdm-add:hover{background:var(--acc);color:#0e0e10}
+.cdm-add.in-list{background:#1a2e1a;border-color:#5a9a5a;color:#7aba7a}
+.hbg{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;padding:6px;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;cursor:pointer;flex-shrink:0}
+.hbg span{display:block;width:100%;height:2px;background:var(--txt);border-radius:2px;transition:all .25s}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.7)}
+.mob-overlay.open{display:block}
+.mob-panel{position:fixed;top:0;left:-100%;width:300px;max-width:85vw;height:100vh;background:var(--sur);border-right:1px solid var(--bor);z-index:401;overflow-y:auto;transition:left .3s;padding:20px 16px;box-sizing:border-box}
+.mob-panel.open{left:0}
+.mob-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.mob-logo{font-family:"Cinzel",serif;font-size:16px;color:var(--acc)}
+.mob-x{background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;padding:4px}
+.mob-x:hover{color:var(--txt)}
+.banner{background:#1a1200;border-bottom:2px solid #c9a84c;padding:10px 28px;text-align:center;font-size:13px;color:#c9a84c;letter-spacing:.04em}
+.banner strong{font-weight:500}
+.site-footer{background:var(--sur);border-top:1px solid var(--bor);padding:28px;text-align:center;display:flex;flex-direction:column;gap:8px}
+.footer-logo{font-family:"Cinzel",serif;font-size:16px;color:var(--acc);font-weight:600}
+.footer-desc{font-size:13px;color:var(--mut);max-width:600px;margin:0 auto;line-height:1.7}
+@media(max-width:700px){
+aside{display:none}
+main{padding:16px}
+:root{--cw:150px}
+.dr{width:100vw}
+.pg-perpage label{display:none}
+.hbg{display:flex !important}
+.cdm-bg{padding:0;align-items:stretch}
+.cdm{flex-direction:column;width:100%;max-width:100vw;height:100vh;max-height:100vh;border-radius:0;border:none;overflow:hidden}
+.cdm-img{width:100%;height:40vh;flex-shrink:0;aspect-ratio:unset}
+.cdm-info{flex:1;max-height:none;overflow-y:auto;padding:16px;padding-top:52px}
+.cdm-close{position:fixed;top:12px;right:14px;z-index:402;background:var(--sur2);border:1px solid var(--bor);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="banner"&gt;
+  &lt;strong&gt;◆ Custom Proxy Artwork Gallery&lt;/strong&gt; &nbsp;—&nbsp; Not for resale. Not tournament legal.
+&lt;/div&gt;
+&lt;header&gt;
+  &lt;div class="logo"&gt;Tap 4 &lt;span&gt;Proxies&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="hdr-right"&gt;
+    &lt;button class="hbg" id="hbg-btn" onclick="openMob()" aria-label="Filters"&gt;
+      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;select id="sort-select" class="hdr-select" onchange="goPage(1)"&gt;
+      &lt;option value="alpha"&gt;A to Z&lt;/option&gt;
+      &lt;option value="newest"&gt;Newest Added&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button id="bb" onclick="openD()"&gt;
+      &lt;svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/&gt;&lt;line x1="3" y1="6" x2="21" y2="6"/&gt;&lt;path d="M16 10a4 4 0 01-8 0"/&gt;&lt;/svg&gt;
+      My List &lt;span class="bc" id="bc"&gt;0&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+&lt;div class="layout"&gt;
+  &lt;aside&gt;
+    &lt;input type="text" class="sb-search" id="search" placeholder="Search cards, tags, codes..." oninput="goPage(1)"&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Color&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body open"&gt;&lt;div id="colorf"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Card Type&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body open"&gt;&lt;div id="typef"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Power Level&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body open"&gt;&lt;div id="pwrf"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Category&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body"&gt;&lt;div id="sf"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Style / Theme&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body"&gt;&lt;div id="stylef"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="sb-section"&gt;
+      &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Character / Theme&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="sb-body"&gt;&lt;div id="cf"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="clear-all" onclick="clearAllFilters()"&gt;Clear All Filters&lt;/button&gt;
+  &lt;/aside&gt;
+  &lt;main&gt;
+    &lt;div class="gh"&gt;
+      &lt;div&gt;&lt;div class="gt" id="gt"&gt;All Cards&lt;/div&gt;&lt;div class="gc" id="gc"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="af" id="af"&gt;&lt;/div&gt;
+    &lt;div class="pgbar top" id="pgbar-top"&gt;&lt;/div&gt;
+    &lt;div class="grid" id="grid"&gt;&lt;/div&gt;
+    &lt;div class="pgbar" id="pgbar-bot"&gt;&lt;/div&gt;
+  &lt;/main&gt;
+&lt;/div&gt;
+&lt;div class="ov" id="ov" onclick="closeD()"&gt;&lt;/div&gt;
+&lt;div class="dr" id="dr"&gt;
+  &lt;div class="dh"&gt;&lt;div class="dt"&gt;My Order List&lt;/div&gt;&lt;button class="xb" onclick="closeD()"&gt;✕&lt;/button&gt;&lt;/div&gt;
+  &lt;div class="li2" id="li"&gt;&lt;/div&gt;
+  &lt;div class="cow"&gt;
+    &lt;div class="col-lbl"&gt;Paste into Discord&lt;/div&gt;
+    &lt;div class="co" id="co"&gt;(none)&lt;/div&gt;
+    &lt;button class="cpb" id="cpb" onclick="cpList()" disabled&gt;Copy Order List&lt;/button&gt;
+    &lt;div class="dh2"&gt;Paste into &lt;strong&gt;#orders&lt;/strong&gt; on Discord&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mob-overlay" id="mob-overlay" onclick="closeMob()"&gt;&lt;/div&gt;
+&lt;div class="mob-panel" id="mob-panel"&gt;
+  &lt;div class="mob-hdr"&gt;
+    &lt;div class="mob-logo"&gt;Tap 4 Proxies&lt;/div&gt;
+    &lt;button class="mob-x" onclick="closeMob()"&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;input type="text" class="sb-search" id="mob-search" placeholder="Search..." oninput="mobSearch(this.value)"&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Color&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body open"&gt;&lt;div id="mob-colorf"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Card Type&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body open"&gt;&lt;div id="mob-typef"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head open" onclick="toggleSb(this)"&gt;&lt;span&gt;Power Level&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body open"&gt;&lt;div id="mob-pwrf"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Category&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body"&gt;&lt;div id="mob-sf"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Style / Theme&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body"&gt;&lt;div id="mob-stylef"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="sb-section"&gt;
+    &lt;div class="sb-head" onclick="toggleSb(this)"&gt;&lt;span&gt;Character / Theme&lt;/span&gt;&lt;span class="arr"&gt;▼&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="sb-body"&gt;&lt;div id="mob-cf"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="clear-all" onclick="clearAllFilters();closeMob()"&gt;Clear All Filters&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="cdm-bg" id="cdm-bg"&gt;
+  &lt;div class="cdm" id="cdm"&gt;
+    &lt;button class="cdm-close" id="cdm-close"&gt;✕&lt;/button&gt;
+    &lt;div class="cdm-img"&gt;&lt;img id="cdm-img" src="" alt=""&gt;&lt;div class="ph2" id="cdm-ph" style="display:none"&gt;🃏&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="cdm-info"&gt;
+      &lt;div class="cdm-name" id="cdm-name"&gt;&lt;/div&gt;
+      &lt;div class="cdm-sub" id="cdm-sub"&gt;&lt;/div&gt;
+      &lt;div class="cdm-section"&gt;&lt;div class="cdm-label"&gt;Category&lt;/div&gt;&lt;div class="cdm-tags" id="cdm-cat"&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class="cdm-section"&gt;&lt;div class="cdm-label"&gt;Colors&lt;/div&gt;&lt;div class="cdm-tags" id="cdm-colors"&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class="cdm-section"&gt;&lt;div class="cdm-label"&gt;Tags&lt;/div&gt;&lt;div class="cdm-tags" id="cdm-tags"&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class="cdm-section"&gt;&lt;div class="cdm-label"&gt;Search Tags&lt;/div&gt;&lt;div class="cdm-tags" id="cdm-search"&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class="cdm-code" id="cdm-code"&gt;&lt;/div&gt;
+      &lt;button class="cdm-add" id="cdm-add"&gt;+ Add to List&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
 var CARDS = [];
-var pending = [];
-var editId = null;
+var COLORS = ["white","blue","black","red","green","colorless","gamechanger"];
+var CARD_TYPES = ["Land","Creature","Artifact","Enchantment","Instant","Sorcery"];
+var POWER_LEVELS = ["Game Changer","Staple","Casual"];
+var STYLE_TAGS = ["anime","meme","realistic","dark","cartoon","holographic","glow"];
+var COLOR_STYLES = {white:"background:#f0ede0;color:#333",blue:"background:#1a3a6a;color:#7ab4ff",black:"background:#1a1a1a;color:#aaa",red:"background:#4a1515;color:#ff7a7a",green:"background:#1a3a1a;color:#7aba7a",colorless:"background:#2a2a2a;color:#bbb",gamechanger:"background:#1a0a2e;color:#c9a4ff"};
+var ml=[],aS=null,aC=null,aCol=null,aType=null,aPwr=null,aStyle=null;
+var filteredCards=[];
+var currentPage=1;
+var isMobile=window.innerWidth&lt;=700;
+var perPage=isMobile?20:100;
 
-var COLORS = ['white','blue','black','red','green','gold','colorless'];
-var COLOR_STYLES = {
-  white:'background:#f0ede0;color:#333;border:1px solid #bbb',
-  blue:'background:#1a3a6a;color:#7ab4ff;border:1px solid #2a5aaa',
-  black:'background:#1a1a1a;color:#aaa;border:1px solid #444',
-  red:'background:#4a1515;color:#ff7a7a;border:1px solid #8a2a2a',
-  green:'background:#1a3a1a;color:#7aba7a;border:1px solid #2a6a2a',
-  gold:'background:#3a2a0a;color:#e8c97a;border:1px solid #8a6a1a',
-  colorless:'background:#2a2a2a;color:#bbb;border:1px solid #555'
-};
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):""}
 
-var KNOWN = {
-  "BLACK-LOTUS":"Black Lotus","MANA-CRYPT":"Mana Crypt","SOL-RING":"Sol Ring",
-  "MANA-VAULT":"Mana Vault","GRIM-MONOLITH":"Grim Monolith","CHROME-MOX":"Chrome Mox",
-  "MOX-DIAMOND":"Mox Diamond","MOX-OPAL":"Mox Opal","LOTUS-PETAL":"Lotus Petal",
-  "JEWELED-LOTUS":"Jeweled Lotus","THE-ONE-RING":"The One Ring","SCROLL-RACK":"Scroll Rack",
-  "AETHERFLUX-RESERVOIR":"Aetherflux Reservoir","ISOCHRON-SCEPTER":"Isochron Scepter",
-  "BASALT-MONOLITH":"Basalt Monolith","CRUCIBLE-OF-WORLDS":"Crucible of Worlds",
-  "LIGHTNING-GREAVES":"Lightning Greaves","SWIFTFOOT-BOOTS":"Swiftfoot Boots",
-  "SKULLCLAMP":"Skullclamp","ARCANE-SIGNET":"Arcane Signet","FELLWAR-STONE":"Fellwar Stone",
-  "MIND-STONE":"Mind Stone","THOUGHT-VESSEL":"Thought Vessel","ANCIENT-TOMB":"Ancient Tomb",
-  "CITY-OF-TRAITORS":"City of Traitors","CAVERN-OF-SOULS":"Cavern of Souls",
-  "RELIQUARY-TOWER":"Reliquary Tower","STRIP-MINE":"Strip Mine","WASTELAND":"Wasteland",
-  "RHYSTIC-STUDY":"Rhystic Study","MYSTIC-REMORA":"Mystic Remora",
-  "SMOTHERING-TITHE":"Smothering Tithe","ESPER-SENTINEL":"Esper Sentinel",
-  "GRAND-ABOLISHER":"Grand Abolisher","SILENCE":"Silence","DEFLECTING-SWAT":"Deflecting Swat",
-  "FIERCE-GUARDIANSHIP":"Fierce Guardianship","FORCE-OF-WILL":"Force of Will",
-  "FORCE-OF-NEGATION":"Force of Negation","PACT-OF-NEGATION":"Pact of Negation",
-  "SWAN-SONG":"Swan Song","FLUSTERSTORM":"Flusterstorm","CYCLONIC-RIFT":"Cyclonic Rift",
-  "UNDERWORLD-BREACH":"Underworld Breach","DEMONIC-TUTOR":"Demonic Tutor",
-  "VAMPIRIC-TUTOR":"Vampiric Tutor","MYSTICAL-TUTOR":"Mystical Tutor",
-  "ENLIGHTENED-TUTOR":"Enlightened Tutor","WORLDLY-TUTOR":"Worldly Tutor","GAMBLE":"Gamble",
-  "AD-NAUSEAM":"Ad Nauseam","NECROPOTENCE":"Necropotence","WHEEL-OF-FORTUNE":"Wheel of Fortune",
-  "WINDFALL":"Windfall","TIMETWISTER":"Timetwister","BRAINSTORM":"Brainstorm","PONDER":"Ponder",
-  "PREORDAIN":"Preordain","BRAIN-FREEZE":"Brain Freeze","DRAMATIC-REVERSAL":"Dramatic Reversal",
-  "TOXIC-DELUGE":"Toxic Deluge","BIRDS-OF-PARADISE":"Birds of Paradise",
-  "SURVIVAL-OF-THE-FITTEST":"Survival of the Fittest",
-  "FINALE-OF-DEVASTATION":"Finale of Devastation","CRATERHOOF-BEHEMOTH":"Craterhoof Behemoth",
-  "OPPOSITION-AGENT":"Opposition Agent","DAUTHI-VOIDWALKER":"Dauthi Voidwalker",
-  "BLOOD-MOON":"Blood Moon","BLOOD-ARTIST":"Blood Artist","BLOOM-TENDER":"Bloom Tender",
-  "IMPERIAL-SEAL":"Imperial Seal","ORCISH-BOWMASTERS":"Orcish Bowmasters",
-  "REANIMATE":"Reanimate","ENTOMB":"Entomb","MANA-DRAIN":"Mana Drain",
-  "LIGHTNING-BOLT":"Lightning Bolt","CULTIVATE":"Cultivate","SHEOLDRED":"Sheoldred",
-  "FAREWELL":"Farewell","WILL-SMITH":"Will Smith","EDWARD-CULLEN":"Edward Cullen",
-  "TWILIGHT":"Twilight","WILLIAM-SHAKESPEAR":"William Shakespear",
-  "TEFERI-S-PROTECTION":"Teferi's Protection"
-};
-
-function ge(id) { return document.getElementById(id); }
-function showToast(msg) { var el=ge('toast');el.textContent=msg;el.className='toast show';setTimeout(function(){el.className='toast'},2600); }
-function save() { try{localStorage.setItem(KEY,JSON.stringify(CARDS))}catch(e){} }
-function load() { try{var d=localStorage.getItem(KEY);if(d)CARDS=JSON.parse(d)}catch(e){CARDS=[]} }
-function slugify(s) { return s.toUpperCase().replace(/[^A-Z0-9]+/g,'-').replace(/^-|-$/g,''); }
-function makeCode(name,cat) { if(!name||!cat)return 'Fill in name and category...';return 'MTG-'+slugify(name)+'-'+slugify(cat); }
-function genId() { return 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5); }
-function cap(s) { return s?s.charAt(0).toUpperCase()+s.slice(1):''; }
-
-function getSelectedColors(gridId) {
-  var selected=[];
-  ge(gridId).querySelectorAll('.color-btn.sel').forEach(function(btn){selected.push(btn.getAttribute('data-color'))});
-  return selected;
+function toggleSb(head){
+  head.classList.toggle("open");
+  head.nextElementSibling.classList.toggle("open");
 }
-function setSelectedColors(gridId,colors) {
-  ge(gridId).querySelectorAll('.color-btn').forEach(function(btn){
-    if(colors.indexOf(btn.getAttribute('data-color'))>=0){btn.classList.add('sel')}else{btn.classList.remove('sel')}
+
+function openMob(){
+  document.getElementById("mob-overlay").classList.add("open");
+  document.getElementById("mob-panel").classList.add("open");
+  document.getElementById("hbg-btn").classList.add("open");
+  document.body.style.overflow="hidden";
+  buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");
+}
+function closeMob(){
+  document.getElementById("mob-overlay").classList.remove("open");
+  document.getElementById("mob-panel").classList.remove("open");
+  document.getElementById("hbg-btn").classList.remove("open");
+  document.body.style.overflow="";
+}
+function mobSearch(val){
+  document.getElementById("search").value=val;
+  goPage(1);
+}
+
+function buildFilters(){
+  buildFilterSet("colorf","typef","pwrf","sf","stylef","cf");
+}
+
+function buildFilterSet(colId,typeId,pwrId,sfId,styleId,cfId){
+  var colEl=document.getElementById(colId);
+  if(colEl){colEl.innerHTML="";COLORS.forEach(function(col){var cnt=CARDS.filter(function(c){return(c.colors||[]).indexOf(col)&gt;=0}).length;if(!cnt)return;var p=document.createElement("div");p.className="fp"+(aCol===col?" act":"");p.innerHTML="&lt;span style='display:flex;align-items:center;gap:7px'&gt;&lt;span class='dot' style='"+COLOR_STYLES[col]+"'&gt;&lt;/span&gt;"+cap(col==="gamechanger"?"Game Changer":col)+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";p.onclick=function(){aCol=aCol===col?null:col;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};colEl.appendChild(p)})}
+  var typeEl=document.getElementById(typeId);
+  if(typeEl){typeEl.innerHTML="";CARD_TYPES.forEach(function(t){var cnt=CARDS.filter(function(c){return(c.cardType||"")===t}).length;var p=document.createElement("div");p.className="fp"+(aType===t?" act":"");p.innerHTML="&lt;span&gt;"+t+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";p.onclick=function(){aType=aType===t?null:t;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};typeEl.appendChild(p)})}
+  var pwrEl=document.getElementById(pwrId);
+  if(pwrEl){pwrEl.innerHTML="";POWER_LEVELS.forEach(function(p){var cnt=CARDS.filter(function(c){return(c.powerLevel||"")===p}).length;var el=document.createElement("div");el.className="fp"+(aPwr===p?" act":"");var dot=p==="Game Changer"?"background:#1a0a2e;color:#c9a4ff":p==="Staple"?"background:#26221a;color:#c9a84c":"background:#1a2e1a;color:#7aba7a";el.innerHTML="&lt;span style='display:flex;align-items:center;gap:7px'&gt;&lt;span class='dot' style='"+dot+"'&gt;&lt;/span&gt;"+p+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";el.onclick=function(){aPwr=aPwr===p?null:p;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};pwrEl.appendChild(el)})}
+  var sfEl=document.getElementById(sfId);
+  if(sfEl){sfEl.innerHTML="";var sec=[];CARDS.forEach(function(c){if(sec.indexOf(c.section)&lt;0)sec.push(c.section)});sec.sort();sec.forEach(function(s){var cnt=CARDS.filter(function(c){return c.section===s}).length;var p=document.createElement("div");p.className="fp"+(aS===s?" act":"");p.innerHTML="&lt;span&gt;"+cap(s)+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";p.onclick=function(){aS=aS===s?null:s;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};sfEl.appendChild(p)})}
+  var stEl=document.getElementById(styleId);
+  if(stEl){stEl.innerHTML="";STYLE_TAGS.forEach(function(st){var cnt=CARDS.filter(function(c){return(c.secTags||[]).indexOf(st)&gt;=0||(c.searchTags||[]).indexOf(st)&gt;=0}).length;if(!cnt)return;var p=document.createElement("div");p.className="fp"+(aStyle===st?" act":"");p.innerHTML="&lt;span&gt;"+cap(st)+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";p.onclick=function(){aStyle=aStyle===st?null:st;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};stEl.appendChild(p)})}
+  var cfEl=document.getElementById(cfId);
+  if(cfEl){cfEl.innerHTML="";var ch=[];CARDS.forEach(function(c){(c.secTags||[]).forEach(function(x){if(STYLE_TAGS.indexOf(x)&lt;0&amp;&amp;ch.indexOf(x)&lt;0)ch.push(x)})});ch.sort();ch.forEach(function(tag){var cnt=CARDS.filter(function(c){return(c.secTags||[]).indexOf(tag)&gt;=0}).length;var p=document.createElement("div");p.className="fp"+(aC===tag?" act":"");p.innerHTML="&lt;span&gt;#"+tag+"&lt;/span&gt;&lt;span class='fc2'&gt;"+cnt+"&lt;/span&gt;";p.onclick=function(){aC=aC===tag?null:tag;buildFilters();buildFilterSet("mob-colorf","mob-typef","mob-pwrf","mob-sf","mob-stylef","mob-cf");goPage(1)};cfEl.appendChild(p)})}
+}
+
+function clearAllFilters(){
+  aS=null;aC=null;aCol=null;aType=null;aPwr=null;aStyle=null;
+  var s=document.getElementById("search");if(s)s.value="";
+  var ms=document.getElementById("mob-search");if(ms)ms.value="";
+  // Restore from URL hash if present
+(function(){
+  var hash=location.hash;
+  if(hash){
+    try{
+      var st=JSON.parse(decodeURIComponent(hash.slice(1)));
+      aCol=st.col||null;aType=st.type||null;aPwr=st.pwr||null;
+      aS=st.sec||null;aStyle=st.style||null;aC=st.ch||null;
+      currentPage=st.p||1;
+      if(st.pp)perPage=st.pp;
+      var sq=document.getElementById("search");if(sq)sq.value=st.q||"";
+    }catch(err){}
+  }
+  buildFilters();applyF();
+  replaceState();
+  if(location.hash){
+    var st2;try{st2=JSON.parse(decodeURIComponent(location.hash.slice(1)))}catch(e){}
+    if(st2&amp;&amp;st2.card){setTimeout(function(){openCard(st2.card,true)},80);}
+  }
+})();
+}
+
+function tryImg(img,b){
+  var u=b.toUpperCase();
+  var tries=["/images/"+u+".PNG","/images/"+u+".JPG","/images/"+b+".png","/images/"+b+".jpg"];
+  var cur=img.src;var found=-1;
+  for(var i=0;i&lt;tries.length;i++){if(cur.indexOf(tries[i])&gt;=0){found=i;break}}
+  var nxt=tries[found+1];
+  if(nxt){img.src=nxt}else{img.style.display="none";img.nextElementSibling.style.display="flex"}
+}
+
+function goPage(n){
+  currentPage=n;
+  applyF();
+  pushState();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderPagBar(el,total,page,pp,isTop){
+  if(!el)return;
+  var totalPages=Math.ceil(total/pp);
+  if(totalPages&lt;=1&amp;&amp;total===0){el.innerHTML="";return}
+  var start=(page-1)*pp+1;
+  var end=Math.min(page*pp,total);
+
+  // Per-page selector
+  var ppOpts=[10,20,50,100,200];
+  var ppHtml="&lt;div class='pg-perpage'&gt;&lt;label&gt;Per page:&lt;/label&gt;&lt;select onchange='changePerPage(parseInt(this.value))'&gt;";
+  ppOpts.forEach(function(o){ppHtml+="&lt;option value='"+o+"'"+(pp===o?" selected":"")+"&gt;"+o+"&lt;/option&gt;"});
+  ppHtml+="&lt;/select&gt;&lt;/div&gt;";
+
+  // Page info
+  var infoHtml="&lt;div class='pg-info'&gt;Showing &lt;strong&gt;"+start+"–"+end+"&lt;/strong&gt; of &lt;strong&gt;"+total+"&lt;/strong&gt; cards&lt;/div&gt;";
+
+  // Page buttons
+  var btnsHtml="&lt;div class='pg-btns'&gt;";
+  btnsHtml+="&lt;button class='pg-btn' onclick='goPage("+(page-1)+")' "+(page&lt;=1?"disabled":"")+"&gt;← Prev&lt;/button&gt;";
+
+  // Smart page number range
+  var pages=[];
+  if(totalPages&lt;=7){for(var i=1;i&lt;=totalPages;i++)pages.push(i)}
+  else{
+    pages.push(1);
+    if(page&gt;3)pages.push("...");
+    for(var i=Math.max(2,page-1);i&lt;=Math.min(totalPages-1,page+1);i++)pages.push(i);
+    if(page&lt;totalPages-2)pages.push("...");
+    pages.push(totalPages);
+  }
+  pages.forEach(function(p){
+    if(p==="..."){btnsHtml+="&lt;span class='pg-btn dots'&gt;...&lt;/span&gt;"}
+    else{btnsHtml+="&lt;button class='pg-btn"+(p===page?" act":"")+"' onclick='goPage("+p+")'&gt;"+p+"&lt;/button&gt;"}
+  });
+  btnsHtml+="&lt;button class='pg-btn' onclick='goPage("+(page+1)+")' "+(page&gt;=totalPages?"disabled":"")+"&gt;Next →&lt;/button&gt;";
+  btnsHtml+="&lt;/div&gt;";
+
+  el.innerHTML=ppHtml+infoHtml+btnsHtml;
+}
+
+function changePerPage(n){
+  perPage=n;
+  goPage(1);
+}
+
+function applyF(){
+  var sortMode=document.getElementById("sort-select")?document.getElementById("sort-select").value:"alpha";
+  var q=document.getElementById("search").value.trim().toLowerCase();
+  filteredCards=CARDS.filter(function(c){
+    if(aCol&amp;&amp;(c.colors||[]).indexOf(aCol)&lt;0)return false;
+    if(aType&amp;&amp;(c.cardType||"")!==aType)return false;
+    if(aPwr&amp;&amp;(c.powerLevel||"")!==aPwr)return false;
+    if(aS&amp;&amp;c.section!==aS)return false;
+    if(aStyle&amp;&amp;(c.secTags||[]).indexOf(aStyle)&lt;0&amp;&amp;(c.searchTags||[]).indexOf(aStyle)&lt;0)return false;
+    if(aC&amp;&amp;(c.secTags||[]).indexOf(aC)&lt;0)return false;
+    if(q){var h=[c.name,c.art,c.section,c.cardType||"",c.powerLevel||""].concat(c.chars||[]).concat(c.secTags||[]).concat(c.searchTags||[]).concat([c.code]).join(" ").toLowerCase();if(h.indexOf(q)&lt;0)return false}
+    return true;
+  });
+  if(sortMode==="alpha"){filteredCards.sort(function(a,b){return a.name.localeCompare(b.name)})}
+
+  // Clamp page
+  var totalPages=Math.max(1,Math.ceil(filteredCards.length/perPage));
+  if(currentPage&gt;totalPages)currentPage=totalPages;
+
+  var title="All Cards";
+  if(aCol)title=cap(aCol==="gamechanger"?"Game Changer":aCol)+" Cards";
+  else if(aS)title=cap(aS)+" Cards";
+  document.getElementById("gt").textContent=title;
+  document.getElementById("gc").textContent=filteredCards.length+" card"+(filteredCards.length!==1?"s":"");
+
+  // Filter chips
+  var af=document.getElementById("af");af.innerHTML="";
+  function chip(l,cl){var el=document.createElement("div");el.className="chip";el.innerHTML=l+" &lt;span&gt;x&lt;/span&gt;";el.onclick=function(){cl();buildFilters();goPage(1)};af.appendChild(el)}
+  if(aCol)chip(cap(aCol==="gamechanger"?"Game Changer":aCol),function(){aCol=null});
+  if(aType)chip(aType,function(){aType=null});
+  if(aPwr)chip(aPwr,function(){aPwr=null});
+  if(aS)chip(cap(aS),function(){aS=null});
+  if(aStyle)chip(cap(aStyle),function(){aStyle=null});
+  if(aC)chip("#"+aC,function(){aC=null});
+  if(q)chip('"'+q+'"',function(){document.getElementById("search").value=""});
+
+  // Render page bars
+  renderPagBar(document.getElementById("pgbar-top"),filteredCards.length,currentPage,perPage,true);
+  renderPagBar(document.getElementById("pgbar-bot"),filteredCards.length,currentPage,perPage,false);
+
+  // Render cards for current page
+  var g=document.getElementById("grid");g.innerHTML="";
+  if(!CARDS.length){g.innerHTML='&lt;div class="nr"&gt;&lt;h3&gt;No cards yet&lt;/h3&gt;&lt;/div&gt;';return}
+  if(!filteredCards.length){g.innerHTML='&lt;div class="nr"&gt;&lt;h3&gt;No results&lt;/h3&gt;&lt;p&gt;Try adjusting your filters.&lt;/p&gt;&lt;/div&gt;';return}
+
+  var start=(currentPage-1)*perPage;
+  var pageCards=filteredCards.slice(start,start+perPage);
+
+  pageCards.forEach(function(card){
+    var il=ml.indexOf(card.id)&gt;=0;
+    var el=document.createElement("div");el.className="ci"+(il?" il":"");el.id="ci-"+card.id;
+    var b=card.code.toLowerCase();
+    var src=card.image||"/images/"+card.code+".PNG";
+    var hidden=card.hiddenTags||[];
+    var catTag=hidden.indexOf(card.section)&gt;=0?"":"&lt;span class='tag s'&gt;"+cap(card.section)+"&lt;/span&gt;";
+    var colHtml=(card.colors||[]).map(function(c){return"&lt;span class='tag "+c+"'&gt;"+cap(c==="gamechanger"?"GC":c)+"&lt;/span&gt;"}).join("");
+    var secHtml=(card.secTags||[]).map(function(t){return"&lt;span class='tag sec'&gt;#"+t+"&lt;/span&gt;"}).join("");
+    el.innerHTML="&lt;div class='iw'&gt;&lt;img src='"+src+"' alt='"+card.art+"' loading='lazy' data-b='"+b+"' onerror='tryImg(this,this.dataset.b)'&gt;&lt;div class='ph2' style='display:none'&gt;🃏&lt;/div&gt;&lt;span class='ilb'&gt;In List&lt;/span&gt;&lt;/div&gt;&lt;div class='info'&gt;&lt;div class='cn'&gt;"+card.name+"&lt;/div&gt;&lt;div class='cs'&gt;Art: "+card.art+"&lt;/div&gt;&lt;div class='tags'&gt;&lt;span class='tag g'&gt;MTG&lt;/span&gt;"+catTag+colHtml+secHtml+"&lt;/div&gt;&lt;div class='code2'&gt;"+card.code+"&lt;/div&gt;&lt;/div&gt;&lt;button class='ab' data-id='"+card.id+"'"+(il?" style='background:#26221a;border-color:var(--acc);color:var(--acc)'":" ")+"&gt;"+(il?"In Your List":"+ Add to List")+"&lt;/button&gt;";
+    el.querySelector(".iw").onclick=function(e){if(e.target.closest(".ab"))return;openCard(card.id)};
+    g.appendChild(el);
   });
 }
-function initColorBtns(gridId) {
-  ge(gridId).querySelectorAll('.color-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){this.classList.toggle('sel')});
+document.getElementById("grid").addEventListener("click",function(e){
+  var btn=e.target.closest(".ab");if(!btn)return;
+  var id=btn.getAttribute("data-id");
+  ml=ml.indexOf(id)&gt;=0?ml.filter(function(x){return x!==id}):ml.concat([id]);
+  document.getElementById("bc").textContent=ml.length;applyF();rdraw();
+});
+function rl(id){ml=ml.filter(function(x){return x!==id});document.getElementById("bc").textContent=ml.length;applyF();rdraw()}
+function openD(){rdraw();document.getElementById("ov").classList.add("open");document.getElementById("dr").classList.add("open")}
+function closeD(){document.getElementById("ov").classList.remove("open");document.getElementById("dr").classList.remove("open")}
+function rdraw(){
+  var li=document.getElementById("li"),co=document.getElementById("co"),cpb=document.getElementById("cpb");
+  if(!ml.length){li.innerHTML='&lt;div class="emp"&gt;&lt;div style="font-size:32px;opacity:.4"&gt;🃏&lt;/div&gt;&lt;div&gt;Add cards to your list&lt;/div&gt;&lt;/div&gt;';co.textContent="(none)";cpb.disabled=true;return}
+  cpb.disabled=false;li.innerHTML="";var lines=[];
+  ml.forEach(function(id){
+    var card=CARDS.find(function(c){return c.id===id});if(!card)return;
+    lines.push(card.code);
+    var e=document.createElement("div");e.className="le";
+    e.innerHTML="&lt;div class='lei'&gt;&lt;div class='len'&gt;"+card.name+" - "+card.art+"&lt;/div&gt;&lt;div class='lec'&gt;"+card.code+"&lt;/div&gt;&lt;/div&gt;&lt;button class='lr' data-id='"+card.id+"'&gt;x&lt;/button&gt;";
+    li.appendChild(e);
   });
+  co.textContent=lines.join("\n");
+  li.addEventListener("click",function(e){var btn=e.target.closest(".lr");if(!btn)return;rl(btn.getAttribute("data-id"))});
 }
+function cpList(){
+  var lines=ml.map(function(id){var c=CARDS.find(function(x){return x.id===id});return c?c.code:null}).filter(Boolean).join("\n");
+  navigator.clipboard.writeText(lines).then(function(){var b=document.getElementById("cpb");b.textContent="Copied!";setTimeout(function(){b.textContent="Copy Order List"},2000)});
+}
+var cdmId=null;
+// ── Browser History API ──────────────────────────────────────────
+function getState(){
+  return{p:currentPage,pp:perPage,col:aCol,type:aType,pwr:aPwr,sec:aS,style:aStyle,ch:aC,q:document.getElementById("search")?document.getElementById("search").value:"",card:cdmId||null};
+}
+function pushState(extra){
+  var st=getState();
+  if(extra)for(var k in extra)st[k]=extra[k];
+  var hash="#"+encodeURIComponent(JSON.stringify(st));
+  history.pushState(st,"",(location.pathname+hash));
+}
+function replaceState(){
+  var st=getState();
+  var hash="#"+encodeURIComponent(JSON.stringify(st));
+  history.replaceState(st,"",(location.pathname+hash));
+}
+function restoreState(st){
+  if(!st)return;
+  aCol=st.col||null;aType=st.type||null;aPwr=st.pwr||null;
+  aS=st.sec||null;aStyle=st.style||null;aC=st.ch||null;
+  currentPage=st.p||1;
+  perPage=st.pp||(window.innerWidth&lt;=700?20:100);
+  var sq=document.getElementById("search");if(sq)sq.value=st.q||"";
+  var ms=document.getElementById("mob-search");if(ms)ms.value=st.q||"";
+  buildFilters();applyF();
+  if(st.card){
+    // Small delay to let grid render first
+    setTimeout(function(){openCard(st.card,true)},50);
+  } else {
+    closeCdm(true);
+  }
+}
+window.addEventListener("popstate",function(e){
+  if(e.state){restoreState(e.state)}
+  else{
+    // Went back to blank state - reset everything
+    aCol=null;aType=null;aPwr=null;aS=null;aStyle=null;aC=null;
+    currentPage=1;perPage=window.innerWidth&lt;=700?20:100;
+    var sq=document.getElementById("search");if(sq)sq.value="";
+    closeCdm(true);buildFilters();applyF();
+  }
+});
+// ────────────────────────────────────────────────────────────────
+
+function openCard(id,skipHistory){
+  var card=CARDS.find(function(c){return c.id===id});if(!card)return;
+  cdmId=id;
+  var b=card.code.toLowerCase();var src=card.image||"/images/"+card.code+".PNG";
+  var img=document.getElementById("cdm-img");var ph=document.getElementById("cdm-ph");
+  img.style.display="block";ph.style.display="none";
+  img.src=src;img.dataset.b=b;
+  img.onerror=function(){tryImg(this,this.dataset.b)};
+  document.getElementById("cdm-name").textContent=card.name;
+  document.getElementById("cdm-sub").textContent="Art: "+card.art;
+  document.getElementById("cdm-code").textContent=card.code;
+  var hidden=card.hiddenTags||[];
+  var catEl=document.getElementById("cdm-cat");catEl.innerHTML="";
+  var ct=document.createElement("span");ct.className="cdm-tag cat";ct.textContent=cap(card.section);
+  if(hidden.indexOf(card.section)&gt;=0){ct.style.textDecoration="line-through";ct.style.opacity=".4";ct.title="Hidden on card"}
+  catEl.appendChild(ct);
+  var colEl=document.getElementById("cdm-colors");colEl.innerHTML="";
+  (card.colors||[]).forEach(function(col){var t=document.createElement("span");t.className="cdm-tag col-"+col;t.textContent=cap(col==="gamechanger"?"Game Changer":col);colEl.appendChild(t)});
+  if(!(card.colors||[]).length)colEl.innerHTML='&lt;span style="color:var(--mut);font-size:12px"&gt;None set&lt;/span&gt;';
+  var tagsEl=document.getElementById("cdm-tags");tagsEl.innerHTML="";
+  (card.secTags||[]).forEach(function(t){var sp=document.createElement("span");sp.className="cdm-tag sec";sp.textContent="#"+t;tagsEl.appendChild(sp)});
+  if(!(card.secTags||[]).length)tagsEl.innerHTML='&lt;span style="color:var(--mut);font-size:12px"&gt;None&lt;/span&gt;';
+  var srchEl=document.getElementById("cdm-search");srchEl.innerHTML="";
+  (card.searchTags||[]).forEach(function(t){var sp=document.createElement("span");sp.className="cdm-tag search";sp.textContent=t;srchEl.appendChild(sp)});
+  if(!(card.searchTags||[]).length)srchEl.innerHTML='&lt;span style="color:var(--mut);font-size:12px"&gt;None set&lt;/span&gt;';
+  updateCdmBtn();
+  document.getElementById("cdm-bg").classList.add("open");
+  document.body.style.overflow="hidden";
+  if(!skipHistory)pushState({card:id});
+}
+function updateCdmBtn(){
+  var btn=document.getElementById("cdm-add");
+  var inList=ml.indexOf(cdmId)&gt;=0;
+  btn.className="cdm-add"+(inList?" in-list":"");
+  btn.textContent=inList?"In Your List - Remove":"+ Add to List";
+}
+document.getElementById("cdm-close").addEventListener("click",closeCdm);
+document.getElementById("cdm-bg").addEventListener("click",function(e){if(e.target===this)closeCdm()});
+document.getElementById("cdm-add").addEventListener("click",function(){
+  if(!cdmId)return;
+  ml=ml.indexOf(cdmId)&gt;=0?ml.filter(function(x){return x!==cdmId}):ml.concat([cdmId]);
+  document.getElementById("bc").textContent=ml.length;applyF();rdraw();updateCdmBtn();
+});
+function closeCdm(skipHistory){document.getElementById("cdm-bg").classList.remove("open");document.body.style.overflow="";cdmId=null;if(!skipHistory)pushState({card:null});}
+// Restore from URL hash if present
+(function(){
+  var hash=location.hash;
+  if(hash){
+    try{
+      var st=JSON.parse(decodeURIComponent(hash.slice(1)));
+      aCol=st.col||null;aType=st.type||null;aPwr=st.pwr||null;
+      aS=st.sec||null;aStyle=st.style||null;aC=st.ch||null;
+      currentPage=st.p||1;
+      if(st.pp)perPage=st.pp;
+      var sq=document.getElementById("search");if(sq)sq.value=st.q||"";
+    }catch(err){}
+  }
+  buildFilters();applyF();
+  replaceState();
+  if(location.hash){
+    var st2;try{st2=JSON.parse(decodeURIComponent(location.hash.slice(1)))}catch(e){}
+    if(st2&amp;&amp;st2.card){setTimeout(function(){openCard(st2.card,true)},80);}
+  }
+})();
+&lt;/script&gt;
+&lt;footer class="site-footer"&gt;
+  &lt;div class="footer-logo"&gt;Tap 4 Proxies&lt;/div&gt;
+  &lt;div class="footer-desc"&gt;Tap 4 Proxies is an online card generator for creative Magic: The Gathering players to easily create and share custom cards and concepts. All artwork is fan-made and intended for personal, non-commercial use only.&lt;/div&gt;
+&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+<script>
+var PW='B!Gchief';var KEY='t4p_v3';var CARDS=[];var pending=[];var editId=null;
+var editSecTags=[];var editHiddenTags=[];var editSearchTags=[];
+var COLORS=['white','blue','black','red','green','gamechanger','colorless'];
+var COLOR_STYLES={white:'background:#f0ede0;color:#333;border:1px solid #bbb',blue:'background:#1a3a6a;color:#7ab4ff;border:1px solid #2a5aaa',black:'background:#1a1a1a;color:#aaa;border:1px solid #444',red:'background:#4a1515;color:#ff7a7a;border:1px solid #8a2a2a',green:'background:#1a3a1a;color:#7aba7a;border:1px solid #2a6a2a',gamechanger:'background:#1a0a2e;color:#c9a4ff;border:1px solid #6a3aaa',colorless:'background:#2a2a2a;color:#bbb;border:1px solid #555'};
+var KNOWN={"BLACK-LOTUS":"Black Lotus","MANA-CRYPT":"Mana Crypt","SOL-RING":"Sol Ring","MANA-VAULT":"Mana Vault","GRIM-MONOLITH":"Grim Monolith","CHROME-MOX":"Chrome Mox","MOX-DIAMOND":"Mox Diamond","MOX-OPAL":"Mox Opal","LOTUS-PETAL":"Lotus Petal","JEWELED-LOTUS":"Jeweled Lotus","THE-ONE-RING":"The One Ring","SCROLL-RACK":"Scroll Rack","AETHERFLUX-RESERVOIR":"Aetherflux Reservoir","ISOCHRON-SCEPTER":"Isochron Scepter","BASALT-MONOLITH":"Basalt Monolith","CRUCIBLE-OF-WORLDS":"Crucible of Worlds","LIGHTNING-GREAVES":"Lightning Greaves","SWIFTFOOT-BOOTS":"Swiftfoot Boots","SKULLCLAMP":"Skullclamp","ARCANE-SIGNET":"Arcane Signet","FELLWAR-STONE":"Fellwar Stone","MIND-STONE":"Mind Stone","THOUGHT-VESSEL":"Thought Vessel","ANCIENT-TOMB":"Ancient Tomb","CITY-OF-TRAITORS":"City of Traitors","CAVERN-OF-SOULS":"Cavern of Souls","RELIQUARY-TOWER":"Reliquary Tower","STRIP-MINE":"Strip Mine","WASTELAND":"Wasteland","RHYSTIC-STUDY":"Rhystic Study","MYSTIC-REMORA":"Mystic Remora","SMOTHERING-TITHE":"Smothering Tithe","ESPER-SENTINEL":"Esper Sentinel","GRAND-ABOLISHER":"Grand Abolisher","SILENCE":"Silence","DEFLECTING-SWAT":"Deflecting Swat","FIERCE-GUARDIANSHIP":"Fierce Guardianship","FORCE-OF-WILL":"Force of Will","FORCE-OF-NEGATION":"Force of Negation","PACT-OF-NEGATION":"Pact of Negation","SWAN-SONG":"Swan Song","FLUSTERSTORM":"Flusterstorm","CYCLONIC-RIFT":"Cyclonic Rift","UNDERWORLD-BREACH":"Underworld Breach","DEMONIC-TUTOR":"Demonic Tutor","VAMPIRIC-TUTOR":"Vampiric Tutor","MYSTICAL-TUTOR":"Mystical Tutor","ENLIGHTENED-TUTOR":"Enlightened Tutor","WORLDLY-TUTOR":"Worldly Tutor","GAMBLE":"Gamble","AD-NAUSEAM":"Ad Nauseam","NECROPOTENCE":"Necropotence","WHEEL-OF-FORTUNE":"Wheel of Fortune","WINDFALL":"Windfall","TIMETWISTER":"Timetwister","BRAINSTORM":"Brainstorm","PONDER":"Ponder","PREORDAIN":"Preordain","BRAIN-FREEZE":"Brain Freeze","DRAMATIC-REVERSAL":"Dramatic Reversal","TOXIC-DELUGE":"Toxic Deluge","BIRDS-OF-PARADISE":"Birds of Paradise","SURVIVAL-OF-THE-FITTEST":"Survival of the Fittest","FINALE-OF-DEVASTATION":"Finale of Devastation","CRATERHOOF-BEHEMOTH":"Craterhoof Behemoth","OPPOSITION-AGENT":"Opposition Agent","DAUTHI-VOIDWALKER":"Dauthi Voidwalker","BLOOD-MOON":"Blood Moon","BLOOD-ARTIST":"Blood Artist","BLOOM-TENDER":"Bloom Tender","IMPERIAL-SEAL":"Imperial Seal","ORCISH-BOWMASTERS":"Orcish Bowmasters","REANIMATE":"Reanimate","ENTOMB":"Entomb","MANA-DRAIN":"Mana Drain","LIGHTNING-BOLT":"Lightning Bolt","CULTIVATE":"Cultivate","SHEOLDRED":"Sheoldred","FAREWELL":"Farewell","WILL-SMITH":"Will Smith","EDWARD-CULLEN":"Edward Cullen","TWILIGHT":"Twilight","WILLIAM-SHAKESPEAR":"William Shakespear","TEFERI-S-PROTECTION":"Teferi's Protection"};
+
+function ge(id){return document.getElementById(id)}
+function showToast(msg){var el=ge('toast');el.textContent=msg;el.className='toast show';setTimeout(function(){el.className='toast'},2600)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(CARDS))}catch(e){}}
+function load(){try{var d=localStorage.getItem(KEY);if(d)CARDS=JSON.parse(d)}catch(e){CARDS=[]}}
+function slugify(s){return s.toUpperCase().replace(/[^A-Z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function makeCode(n,c){if(!n||!c)return 'Fill in name and category...';return 'MTG-'+slugify(n)+'-'+slugify(c)}
+function genId(){return 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):''}
+function getSelColors(gid){var s=[];ge(gid).querySelectorAll('.color-btn.sel').forEach(function(b){s.push(b.getAttribute('data-color'))});return s}
+function setSelColors(gid,colors){ge(gid).querySelectorAll('.color-btn').forEach(function(b){b.classList.toggle('sel',colors.indexOf(b.getAttribute('data-color'))>=0)})}
+function initColors(gid){ge(gid).querySelectorAll('.color-btn').forEach(function(b){b.addEventListener('click',function(){this.classList.toggle('sel')})})}
 
 ge('pw').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 ge('signin').addEventListener('click',doLogin);
-function doLogin() {
-  if(ge('pw').value===PW){
-    ge('L').style.display='none';ge('A').style.display='block';
-    load();renderAll();initColorBtns('add-colors');initColorBtns('edit-colors');
-  } else {
-    ge('err').style.display='block';ge('pw').value='';ge('pw').focus();
-  }
+function doLogin(){
+  if(ge('pw').value===PW){ge('L').style.display='none';ge('A').style.display='block';load();renderAll();initColors('add-colors');initColors('edit-colors');initImpCatBtns();}
+  else{ge('err').style.display='block';ge('pw').value='';ge('pw').focus()}
 }
 ge('logoutbtn').addEventListener('click',function(){ge('L').style.display='flex';ge('A').style.display='none';ge('pw').value=''});
-
 ge('fn').addEventListener('input',function(){ge('fcode').textContent=makeCode(ge('fn').value.trim(),ge('fc').value.trim())});
 ge('fc').addEventListener('input',function(){ge('fcode').textContent=makeCode(ge('fn').value.trim(),ge('fc').value.trim())});
 ge('e-name').addEventListener('input',function(){ge('e-code').textContent=makeCode(ge('e-name').value.trim(),ge('e-cat').value.trim())});
@@ -308,22 +965,33 @@ ge('e-cat').addEventListener('input',function(){ge('e-code').textContent=makeCod
 
 ge('addbtn').addEventListener('click',addCard);
 ge('clearbtn').addEventListener('click',clearForm);
-function addCard() {
+function addCard(){
   var name=ge('fn').value.trim(),art=ge('fa').value.trim(),cat=ge('fc').value.trim(),tags=ge('ft').value;
   if(!name||!art||!cat){showToast('Fill in name, art and category');return}
-  var chars=tags.split(',').map(function(t){return t.trim().toLowerCase().split(' ').join('')}).filter(Boolean);
-  var colors=getSelectedColors('add-colors');
-  colors.forEach(function(c){if(chars.indexOf(c)<0)chars.push(c)});
-  if(!chars.length)chars=[cat.toLowerCase()];
-  CARDS.push({id:genId(),name:name,art:art,section:cat.toLowerCase(),chars:chars,colors:colors,code:makeCode(name,cat),image:'',available:true});
+  var secTags=tags.split(',').map(function(t){return t.trim().toLowerCase().split(' ').join('')}).filter(Boolean);
+  var colors=getSelColors('add-colors');
+  CARDS.push({id:genId(),name:name,art:art,section:cat.toLowerCase(),chars:[cat.toLowerCase()],secTags:secTags,hiddenTags:[],searchTags:[],colors:colors,cardType:ge('fct').value,powerLevel:ge('fpwr').value,code:makeCode(name,cat),image:'',available:true});
   save();renderAll();clearForm();showToast('Card saved!');
 }
-function clearForm() {
-  ge('fn').value='';ge('fa').value='';ge('fc').value='';ge('ft').value='';
-  ge('fcode').textContent='Fill in name and category...';
-  setSelectedColors('add-colors',[]);
-}
+function clearForm(){ge('fn').value='';ge('fa').value='';ge('fc').value='';ge('ft').value='';ge('fcode').textContent='Fill in name and category...';setSelColors('add-colors',[])}
 
+// Quick category buttons from existing categories
+function initImpCatBtns(){
+  var wrap=ge('cat-quick-btns');if(!wrap)return;
+  wrap.innerHTML='';
+  var cats=[];CARDS.forEach(function(c){if(cats.indexOf(c.section)<0)cats.push(c.section)});cats.sort();
+  cats.slice(0,12).forEach(function(cat){
+    var btn=document.createElement('button');
+    btn.type='button';btn.className='sbtn';btn.textContent=cap(cat);
+    btn.style.cssText='padding:4px 10px;font-size:11px';
+    btn.onclick=function(){
+      ge('imp-cat-prefix').value=cat;
+      if(pending.length)renderImpPreview();
+    };
+    wrap.appendChild(btn);
+  });
+}
+ge('imp-cat-prefix').addEventListener('input',function(){if(pending.length)renderImpPreview()});
 ge('dz').addEventListener('click',function(){ge('fi').click()});
 ge('dz').addEventListener('dragover',function(e){e.preventDefault();ge('dz').style.borderColor='#c9a84c'});
 ge('dz').addEventListener('dragleave',function(){ge('dz').style.borderColor='#2e2e36'});
@@ -332,157 +1000,319 @@ ge('fi').addEventListener('change',function(){handleFiles(this.files)});
 ge('impbtn').addEventListener('click',importAll);
 ge('impcancelbtn').addEventListener('click',function(){ge('impprev').style.display='none';ge('fi').value=''});
 
-function handleFiles(files) {
-  var imgs=Array.from(files).filter(function(f){return f.name.match(/.(png|jpg|jpeg|webp)$/i)});
+function handleFiles(files){
+  var imgs=Array.from(files).filter(function(f){return f.name.match(/\.(png|jpg|jpeg|webp)$/i)});
   if(!imgs.length){showToast('No image files found');return}
   pending=imgs.map(function(f){return parseFilename(f.name)});
   renderImpPreview();ge('impprev').style.display='block';
 }
-function parseFilename(filename) {
-  var base=filename.replace(/.(png|jpg|jpeg|webp)$/i,'');
+var VALID_COLORS=['white','blue','black','red','green','colorless','gamechanger'];
+var VALID_TYPES=['land','creature','artifact','enchantment','instant','sorcery'];
+var VALID_LEVELS=['gamechanger','staple','casual'];
+
+function parseFilename(filename){
+  var base=filename.replace(/\.(png|jpg|jpeg|webp)$/i,'');
   var clean=base.replace(/^MTG-/i,'');
   var parts=clean.split('-').filter(Boolean);
+
+  // Extract known metadata tokens from the END of the parts list
+  var colors=[],cardType='',powerLevel='',remainParts=parts.slice();
+  // Scan from the back, pull out recognized tokens
+  var i=remainParts.length-1;
+  while(i>=0){
+    var tok=remainParts[i].toLowerCase();
+    if(VALID_LEVELS.indexOf(tok)>=0){
+      if(!powerLevel)powerLevel=tok==='gamechanger'?'Game Changer':tok.charAt(0).toUpperCase()+tok.slice(1);
+      remainParts.splice(i,1);
+    } else if(VALID_TYPES.indexOf(tok)>=0){
+      if(!cardType)cardType=tok.charAt(0).toUpperCase()+tok.slice(1);
+      remainParts.splice(i,1);
+    } else if(VALID_COLORS.indexOf(tok)>=0){
+      colors.unshift(tok);
+      remainParts.splice(i,1);
+    } else {
+      // Check if it's a multi-color token like blue-black or white-blue-black
+      var subToks=tok.split('-');
+      var allColors=subToks.length>1&&subToks.every(function(st){return VALID_COLORS.indexOf(st)>=0});
+      if(allColors){
+        subToks.forEach(function(st){if(colors.indexOf(st)<0)colors.unshift(st)});
+        remainParts.splice(i,1);
+      } else { break; }
+    }
+    i--;
+  }
+
+  // Check category prefix override
+  var catOverride=ge('imp-cat-prefix')?ge('imp-cat-prefix').value.trim().toLowerCase():'';
+
+  // Try KNOWN lookup on remaining parts
   var cardName='',category='';
-  for(var i=parts.length-1;i>=1;i--){
-    var ns=parts.slice(0,i).join('-').toUpperCase();
-    if(KNOWN[ns]){cardName=KNOWN[ns];category=parts.slice(i).join('').toLowerCase();break}
+  for(var j=remainParts.length-1;j>=1;j--){
+    var ns=remainParts.slice(0,j).join('-').toUpperCase();
+    if(KNOWN[ns]){
+      cardName=KNOWN[ns];
+      category=catOverride||remainParts.slice(j).join('').toLowerCase()||'uncategorized';
+      break;
+    }
   }
   if(!cardName){
-    cardName=parts.slice(0,-1).map(function(p){return p.charAt(0).toUpperCase()+p.slice(1).toLowerCase()}).join(' ');
-    category=parts.slice(-1).join('').toLowerCase();
+    if(remainParts.length>=2){
+      cardName=remainParts.slice(0,-1).map(function(p){return p.charAt(0).toUpperCase()+p.slice(1).toLowerCase()}).join(' ');
+      category=catOverride||remainParts.slice(-1)[0].toLowerCase();
+    } else {
+      cardName=remainParts.map(function(p){return p.charAt(0).toUpperCase()+p.slice(1).toLowerCase()}).join(' ');
+      category=catOverride||'uncategorized';
+    }
   }
-  var c='MTG-'+parts.join('-').toUpperCase();
-  return{filename:filename,cardName:cardName,category:category,colors:[],code:c,exists:!!CARDS.find(function(x){return x.code===c}),skip:false};
+  if(catOverride) category=catOverride;
+
+  // Build code from remaining parts only (no metadata tokens)
+  var codeParts=remainParts.slice();
+  var code='MTG-'+codeParts.join('-').toUpperCase();
+
+  return{filename:filename,cardName:cardName,category:category,colors:colors,cardType:cardType,powerLevel:powerLevel,code:code,exists:!!CARDS.find(function(x){return x.code===code}),skip:false};
 }
-function toggleImpColor(btn,i) {
-  var color=btn.getAttribute('data-color');btn.classList.toggle('sel');
-  var idx=pending[i].colors.indexOf(color);
-  if(idx>=0){pending[i].colors.splice(idx,1)}else{pending[i].colors.push(color)}
-}
-function renderImpPreview() {
+function toggleImpColor(btn,i){var color=btn.getAttribute('data-color');btn.classList.toggle('sel');var idx=pending[i].colors.indexOf(color);if(idx>=0){pending[i].colors.splice(idx,1)}else{pending[i].colors.push(color)}}
+function renderImpPreview(){
   var n=pending.filter(function(p){return !p.exists&&!p.skip}).length;
   ge('impcnt').textContent=pending.length+' files - '+n+' new';
   var tb=ge('imptb');tb.innerHTML='';
   pending.forEach(function(row,i){
-    var tr=document.createElement('tr');
-    if(row.skip)tr.style.opacity='0.4';
-    var colorBtns=COLORS.map(function(c){
-      var sel=row.colors.indexOf(c)>=0?' sel':'';
-      return '<button type="button" class="color-btn c-'+c+sel+'" style="padding:3px 8px;font-size:10px" data-color="'+c+'" onclick="toggleImpColor(this,'+i+')">'+cap(c)+'</button>';
-    }).join('');
-    tr.innerHTML='<td style="font-family:monospace;font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+row.filename+'</td>'+
-      '<td><input type="text" value="'+row.cardName+'" data-i="'+i+'" data-f="cardName" class="imp-inp" style="width:120px"></td>'+
-      '<td><input type="text" value="'+row.category+'" data-i="'+i+'" data-f="category" class="imp-inp" style="width:80px"></td>'+
-      '<td><div style="display:flex;flex-wrap:wrap;gap:3px">'+colorBtns+'</div></td>'+
+    var tr=document.createElement('tr');if(row.skip)tr.style.opacity='0.4';
+    var cb=COLORS.map(function(c){var s=row.colors.indexOf(c)>=0?' sel':'';return '<button type="button" class="color-btn c-'+c+s+'" style="padding:3px 8px;font-size:10px" data-color="'+c+'" onclick="toggleImpColor(this,'+i+')">'+cap(c)+'</button>'}).join('');
+    var typeOpts=['','Land','Creature','Artifact','Enchantment','Instant','Sorcery'].map(function(t){return'<option value="'+t+'"'+(row.cardType===t?' selected':'')+'>'+t+'</option>'}).join('');
+    var pwrOpts=['','Game Changer','Staple','Casual'].map(function(t){return'<option value="'+t+'"'+(row.powerLevel===t?' selected':'')+'>'+t+'</option>'}).join('');
+    tr.innerHTML='<td style="font-family:monospace;font-size:11px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+row.filename+'">'+row.filename+'</td>'+
+      '<td><input type="text" value="'+row.cardName+'" data-i="'+i+'" data-f="cardName" class="imp-inp" style="width:110px"></td>'+
+      '<td><input type="text" value="'+row.category+'" data-i="'+i+'" data-f="category" class="imp-inp" style="width:70px"></td>'+
+      '<td><div style="display:flex;flex-wrap:wrap;gap:3px">'+cb+'</div></td>'+
+      '<td><select class="imp-inp" data-i="'+i+'" data-f="cardType" style="font-size:11px;padding:3px 4px;background:#1f1f24;border:1px solid #2e2e36;border-radius:4px;color:#e8e6e0">'+typeOpts+'</select></td>'+
+      '<td><select class="imp-inp" data-i="'+i+'" data-f="powerLevel" style="font-size:11px;padding:3px 4px;background:#1f1f24;border:1px solid #2e2e36;border-radius:4px;color:#e8e6e0">'+pwrOpts+'</select></td>'+
       '<td><span class="pill '+(row.exists?'off':'on')+'">'+(row.exists?'Exists':'New')+'</span></td>'+
       '<td><button class="sbtn '+(row.skip?'g':'d')+' skip-btn" data-i="'+i+'">'+(row.skip?'Undo':'Skip')+'</button></td>';
     tb.appendChild(tr);
   });
-  tb.querySelectorAll('.imp-inp').forEach(function(inp){
-    inp.addEventListener('change',function(){pending[parseInt(this.getAttribute('data-i'))][this.getAttribute('data-f')]=this.value});
-  });
-  tb.querySelectorAll('.skip-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){var i=parseInt(this.getAttribute('data-i'));pending[i].skip=!pending[i].skip;renderImpPreview()});
-  });
+  tb.querySelectorAll('.imp-inp').forEach(function(inp){inp.addEventListener('change',function(){pending[parseInt(this.getAttribute('data-i'))][this.getAttribute('data-f')]=this.value})});
+  tb.querySelectorAll('.skip-btn').forEach(function(btn){btn.addEventListener('click',function(){var i=parseInt(this.getAttribute('data-i'));pending[i].skip=!pending[i].skip;renderImpPreview()})});
 }
-function importAll() {
+function importAll(){
   var toAdd=pending.filter(function(p){return !p.skip&&!p.exists});
   if(!toAdd.length){showToast('No new cards to import');return}
-  toAdd.forEach(function(row){
-    var chars=[row.category.toLowerCase()];
-    row.colors.forEach(function(c){if(chars.indexOf(c)<0)chars.push(c)});
-    CARDS.push({id:genId(),name:row.cardName,art:row.cardName,section:row.category.toLowerCase(),chars:chars,colors:row.colors,code:row.code,image:'',available:true});
-  });
+  toAdd.forEach(function(row){CARDS.push({id:genId(),name:row.cardName,art:row.cardName,section:row.category.toLowerCase(),chars:[row.category.toLowerCase()],secTags:[],hiddenTags:[],searchTags:[],colors:row.colors,cardType:row.cardType||'',powerLevel:row.powerLevel||'',code:row.code,image:'',available:true})});
   save();renderAll();ge('impprev').style.display='none';ge('fi').value='';
   showToast(toAdd.length+' cards imported!');
 }
-function renderStats() {
+
+function renderStats(){
   var t=CARDS.length,av=CARDS.filter(function(c){return c.available}).length,sec=[];
   CARDS.forEach(function(c){if(sec.indexOf(c.section)<0)sec.push(c.section)});
-  ge('stats').innerHTML='<div class="stat"><div class="stn">'+t+'</div><div class="stl">Total</div></div>'+
-    '<div class="stat"><div class="stn">'+av+'</div><div class="stl">Available</div></div>'+
-    '<div class="stat"><div class="stn">'+(t-av)+'</div><div class="stl">Hidden</div></div>'+
-    '<div class="stat"><div class="stn">'+sec.length+'</div><div class="stl">Categories</div></div>';
+  ge('stats').innerHTML='<div class="stat"><div class="stn">'+t+'</div><div class="stl">Total</div></div><div class="stat"><div class="stn">'+av+'</div><div class="stl">Available</div></div><div class="stat"><div class="stn">'+(t-av)+'</div><div class="stl">Hidden</div></div><div class="stat"><div class="stn">'+sec.length+'</div><div class="stl">Categories</div></div>';
 }
 
-ge('srch').addEventListener('input',renderTable);
-function renderTable() {
+var activeLetter=null;
+function updateAlphaBar(){
+  var bar=ge('alpha-bar');if(!bar)return;
+  var letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  var usedLetters={};
+  CARDS.forEach(function(c){var l=c.name.charAt(0).toUpperCase();usedLetters[l]=true});
+  bar.innerHTML='<button class="alpha-btn'+(activeLetter===null?' active':'')+'" onclick="setLetter(null)">All</button>';
+  letters.forEach(function(l){
+    var has=usedLetters[l];
+    var btn=document.createElement('button');
+    btn.className='alpha-btn'+(has?'':' empty')+(activeLetter===l?' active':'');
+    btn.textContent=l;
+    if(has)btn.onclick=function(){setLetter(l)};
+    bar.appendChild(btn);
+  });
+}
+
+function setLetter(l){
+  activeLetter=l;
+  ge('srch').value='';
+  updateAlphaBar();
+  renderTable();
+  if(l&&ge('table-scroll')){ge('table-scroll').scrollTop=0}
+}
+
+ge('srch').addEventListener('input',function(){activeLetter=null;updateAlphaBar();renderTable()});
+function renderTable(){
   var q=(ge('srch').value||'').toLowerCase();
-  var rows=CARDS.filter(function(c){if(!q)return true;return[c.name,c.art,c.section,c.code].join(' ').toLowerCase().indexOf(q)>=0});
+  var rows=CARDS.filter(function(c){
+    if(activeLetter&&c.name.charAt(0).toUpperCase()!==activeLetter)return false;
+    if(!q)return true;
+    return[c.name,c.art,c.section,c.code].join(' ').toLowerCase().indexOf(q)>=0
+  });
   ge('cnt').textContent=CARDS.length;
   var tb=ge('tb');tb.innerHTML='';
   if(!rows.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:#7a7870;padding:24px">No cards yet</td></tr>';return}
+  // Add letter group headers
+  var lastLetter='';
   rows.forEach(function(card){
-    var tr=document.createElement('tr');
-    tr.setAttribute('data-id',card.id);
-    var colorTags=(card.colors||[]).map(function(c){
-      return'<span class="ctag" style="'+(COLOR_STYLES[c]||'')+'">'+cap(c)+'</span>';
-    }).join('');
-    tr.innerHTML='<td style="font-weight:500">'+card.name+'</td>'+
-      '<td style="color:#7a7870">'+card.art+'</td>'+
-      '<td>'+cap(card.section)+'</td>'+
-      '<td>'+(colorTags||'<span style="color:#7a7870;font-size:11px">-</span>')+'</td>'+
-      '<td style="font-family:monospace;font-size:11px;color:#7a7870">'+card.code+'</td>'+
-      '<td><span class="pill '+(card.available?'on':'off')+'">'+(card.available?'On':'Off')+'</span></td>'+
-      '<td><div class="acts">'+
-      '<button class="sbtn edit-btn">Edit</button>'+
-      '<button class="sbtn toggle-btn">'+(card.available?'Hide':'Show')+'</button>'+
-      '<button class="sbtn d del-btn">Delete</button>'+
-      '</div></td>';
+    var firstLetter=card.name.charAt(0).toUpperCase();
+    if(firstLetter!==lastLetter&&!activeLetter){
+      lastLetter=firstLetter;
+      var hdr=document.createElement('tr');
+      hdr.innerHTML='<td colspan="7" class="card-letter-header">'+firstLetter+'</td>';
+      tb.appendChild(hdr);
+    }
+    var tr=document.createElement('tr');tr.setAttribute('data-id',card.id);
+    var ct=(card.colors||[]).map(function(c){return'<span class="ctag" style="'+(COLOR_STYLES[c]||'')+'">'+cap(c)+'</span>'}).join('');
+    tr.innerHTML='<td style="font-weight:500">'+card.name+'</td><td style="color:#7a7870">'+card.art+'</td><td>'+cap(card.section)+'</td><td>'+(ct||'<span style="color:#7a7870;font-size:11px">-</span>')+'</td><td style="font-family:monospace;font-size:11px;color:#7a7870">'+card.code+'</td><td><span class="pill '+(card.available?'on':'off')+'">'+(card.available?'On':'Off')+'</span></td><td><div class="acts"><button class="sbtn edit-btn">Edit</button><button class="sbtn toggle-btn">'+(card.available?'Hide':'Show')+'</button><button class="sbtn d del-btn">Delete</button></div></td>';
     tb.appendChild(tr);
   });
-  tb.querySelectorAll('.edit-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){openEdit(this.closest('tr').getAttribute('data-id'))});
-  });
-  tb.querySelectorAll('.toggle-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var id=this.closest('tr').getAttribute('data-id');
-      var card=CARDS.find(function(c){return c.id===id});
-      if(!card)return;card.available=!card.available;save();renderAll();
-      showToast(card.available?'Card visible':'Card hidden');
-    });
-  });
-  tb.querySelectorAll('.del-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var id=this.closest('tr').getAttribute('data-id');
-      if(!confirm('Delete this card?'))return;
-      CARDS=CARDS.filter(function(c){return c.id!==id});
-      save();renderAll();showToast('Deleted');
-    });
+  tb.querySelectorAll('.edit-btn').forEach(function(btn){btn.addEventListener('click',function(){openEdit(this.closest('tr').getAttribute('data-id'))})});
+  tb.querySelectorAll('.toggle-btn').forEach(function(btn){btn.addEventListener('click',function(){var id=this.closest('tr').getAttribute('data-id');var card=CARDS.find(function(c){return c.id===id});if(!card)return;card.available=!card.available;save();renderAll();showToast(card.available?'Card visible':'Card hidden')})});
+  tb.querySelectorAll('.del-btn').forEach(function(btn){btn.addEventListener('click',function(){var id=this.closest('tr').getAttribute('data-id');if(!confirm('Delete?'))return;CARDS=CARDS.filter(function(c){return c.id!==id});save();renderAll();showToast('Deleted')})});
+}
+
+function renderAutoTags(){
+  var card=CARDS.find(function(c){return c.id===editId});if(!card)return;
+  var allTags=[card.section].concat((card.chars||[]).filter(function(t){return t!==card.section}));
+  var wrap=ge('e-auto-tags');wrap.innerHTML='';
+  if(!allTags.length){wrap.innerHTML='<span style="font-size:12px;color:#7a7870">No tags</span>';return}
+  allTags.forEach(function(tag){
+    var isHidden=editHiddenTags.indexOf(tag)>=0;
+    var pill=document.createElement('span');
+    pill.className='tag-pill '+(isHidden?'hidden':'visible');
+    pill.innerHTML=tag+' <span class="tog">'+(isHidden?'(hidden)':'(visible)')+'</span>';
+    pill.title='Click to '+(isHidden?'show':'hide');
+    pill.addEventListener('click',function(){var idx=editHiddenTags.indexOf(tag);if(idx>=0){editHiddenTags.splice(idx,1)}else{editHiddenTags.push(tag)}renderAutoTags()});
+    wrap.appendChild(pill);
   });
 }
 
-function openEdit(id) {
-  var card=CARDS.find(function(c){return c.id===id});
-  if(!card)return;
+function renderSecTags(){
+  var wrap=ge('e-sec-tags');wrap.innerHTML='';
+  editSecTags.forEach(function(tag,i){
+    var el=document.createElement('span');el.className='sec-tag';
+    el.innerHTML=tag+' <span class="rem" data-i="'+i+'">x</span>';
+    wrap.appendChild(el);
+  });
+  wrap.querySelectorAll('.rem').forEach(function(btn){btn.addEventListener('click',function(){editSecTags.splice(parseInt(this.getAttribute('data-i')),1);renderSecTags()})});
+}
+
+function renderSearchTags(){
+  var wrap=ge('e-search-tags');wrap.innerHTML='';
+  editSearchTags.forEach(function(tag,i){
+    var el=document.createElement('span');el.className='sec-tag search-only';
+    el.innerHTML=tag+' <span class="rem" data-i="'+i+'">x</span>';
+    wrap.appendChild(el);
+  });
+  wrap.querySelectorAll('.rem').forEach(function(btn){btn.addEventListener('click',function(){editSearchTags.splice(parseInt(this.getAttribute('data-i')),1);renderSearchTags()})});
+}
+
+ge('e-add-tag-btn').addEventListener('click',function(){
+  var val=ge('e-new-tag').value.trim();if(!val)return;
+  val.split(',').forEach(function(t){var c=t.trim().toLowerCase().split(' ').join('');if(c&&editSecTags.indexOf(c)<0)editSecTags.push(c)});
+  ge('e-new-tag').value='';renderSecTags();
+});
+ge('e-new-tag').addEventListener('keydown',function(e){if(e.key==='Enter')ge('e-add-tag-btn').click()});
+ge('e-add-search-tag-btn').addEventListener('click',function(){
+  var val=ge('e-new-search-tag').value.trim();if(!val)return;
+  val.split(',').forEach(function(t){var c=t.trim().toLowerCase().split(' ').join('');if(c&&editSearchTags.indexOf(c)<0)editSearchTags.push(c)});
+  ge('e-new-search-tag').value='';renderSearchTags();
+});
+ge('e-new-search-tag').addEventListener('keydown',function(e){if(e.key==='Enter')ge('e-add-search-tag-btn').click()});
+
+function openEdit(id){
+  var card=CARDS.find(function(c){return c.id===id});if(!card)return;
   editId=id;
-  ge('e-name').value=card.name;
-  ge('e-art').value=card.art;
-  ge('e-cat').value=card.section;
-  ge('e-tags').value=card.chars.filter(function(c){return COLORS.indexOf(c)<0}).join(', ');
+  editSecTags=(card.secTags||[]).slice();
+  editHiddenTags=(card.hiddenTags||[]).slice();
+  editSearchTags=(card.searchTags||[]).slice();
+  ge('e-name').value=card.name;ge('e-art').value=card.art;ge('e-cat').value=card.section;
+  if(ge('ect'))ge('ect').value=card.cardType||'';
+  if(ge('epwr'))ge('epwr').value=card.powerLevel||'';
   ge('e-code').textContent=card.code;
-  setSelectedColors('edit-colors',card.colors||[]);
+  setSelColors('edit-colors',card.colors||[]);
+  renderAutoTags();renderSecTags();renderSearchTags();
+  ge('e-new-tag').value='';ge('e-new-search-tag').value='';
   ge('editmodal').classList.add('open');
 }
 ge('modalclose').addEventListener('click',function(){ge('editmodal').classList.remove('open');editId=null});
 ge('modalcancelbtn').addEventListener('click',function(){ge('editmodal').classList.remove('open');editId=null});
 ge('modalsavebtn').addEventListener('click',function(){
-  var card=CARDS.find(function(c){return c.id===editId});
-  if(!card)return;
-  var name=ge('e-name').value.trim(),art=ge('e-art').value.trim(),cat=ge('e-cat').value.trim(),tags=ge('e-tags').value;
+  var card=CARDS.find(function(c){return c.id===editId});if(!card)return;
+  var name=ge('e-name').value.trim(),art=ge('e-art').value.trim(),cat=ge('e-cat').value.trim();
   if(!name||!art||!cat){showToast('Fill in all fields');return}
-  var chars=tags.split(',').map(function(t){return t.trim().toLowerCase().split(' ').join('')}).filter(Boolean);
-  var colors=getSelectedColors('edit-colors');
-  colors.forEach(function(c){if(chars.indexOf(c)<0)chars.push(c)});
-  if(!chars.length)chars=[cat.toLowerCase()];
   card.name=name;card.art=art;card.section=cat.toLowerCase();
-  card.chars=chars;card.colors=colors;card.code=makeCode(name,cat);
-  save();renderAll();
-  ge('editmodal').classList.remove('open');editId=null;
-  showToast('Card updated!');
+  if(ge('ect'))card.cardType=ge('ect').value;
+  if(ge('epwr'))card.powerLevel=ge('epwr').value;
+  card.colors=getSelColors('edit-colors');
+  card.secTags=editSecTags.slice();card.hiddenTags=editHiddenTags.slice();card.searchTags=editSearchTags.slice();
+  card.code=makeCode(name,cat);
+  save();renderAll();ge('editmodal').classList.remove('open');editId=null;showToast('Card updated!');
 });
 
+// ── Export / Import ──────────────────────────────────────────────
+function doExport(){
+  try{var d=localStorage.getItem(KEY);if(d)CARDS=JSON.parse(d)}catch(e){}
+  var payload={version:1,exported:new Date().toISOString(),count:CARDS.length,cards:CARDS};
+  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tap4proxies-cards-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  showToast('Exported '+CARDS.length+' cards!');
+}
+
+function doImport(mode){
+  // mode = 'merge' or 'replace'
+  var input=document.getElementById('importfile2');
+  input.dataset.mode=mode;
+  input.click();
+}
+
+document.getElementById('importfile2').addEventListener('change',function(){
+  var file=this.files[0];if(!file)return;
+  var mode=this.dataset.mode||'merge';
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      var imported=data.cards||data; // support both {cards:[]} and raw []
+      if(!Array.isArray(imported)){showToast('Invalid backup file');return}
+      if(mode==='replace'){
+        if(!confirm('Replace ALL '+CARDS.length+' existing cards with '+imported.length+' imported cards? This cannot be undone.')){return}
+        CARDS=imported;
+      } else {
+        // Merge - skip duplicates by id
+        var added=0,skipped=0;
+        imported.forEach(function(card){
+          if(!CARDS.find(function(x){return x.id===card.id})){
+            CARDS.push(card);added++;
+          } else { skipped++; }
+        });
+        var msg='Merged: '+added+' added, '+skipped+' skipped (duplicates)';
+        document.getElementById('import-status').textContent=msg;
+        showToast(msg);
+      }
+      save();renderAll();
+      if(mode==='replace')showToast('Replaced with '+imported.length+' cards!');
+    }catch(err){
+      showToast('Error reading file');
+      document.getElementById('import-status').textContent='Error: '+err.message;
+    }
+  };
+  reader.readAsText(file);
+  this.value=''; // reset so same file can be re-imported
+});
+
+// Header export/import buttons
+ge('exportbtn').addEventListener('click',doExport);
+ge('importbtn').addEventListener('click',function(){
+  document.getElementById('importfile2').dataset.mode='merge';
+  document.getElementById('importfile2').click();
+});
+
+// Panel buttons
+ge('exportbtn2').addEventListener('click',doExport);
+ge('mergebtn').addEventListener('click',function(){doImport('merge')});
+ge('replacebtn').addEventListener('click',function(){doImport('replace')});
+
+// ────────────────────────────────────────────────────────────────
 ge('dlbtn').addEventListener('click',function(){
+  try{var d=localStorage.getItem(KEY);if(d)CARDS=JSON.parse(d)}catch(e){}
   var j=JSON.stringify(CARDS);
   var html=getIndexTemplate().replace('var CARDS = [];','var CARDS = '+j+';');
   var blob=new Blob([html],{type:'text/html'});
@@ -490,9 +1320,10 @@ ge('dlbtn').addEventListener('click',function(){
   showToast('index.html downloaded!');
 });
 
-function getIndexTemplate(){return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tap 4 Proxies</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>:root{--bg:#0e0e10;--sur:#17171a;--sur2:#1f1f24;--bor:#2e2e36;--acc:#c9a84c;--acc2:#e8c97a;--txt:#e8e6e0;--mut:#7a7870;--cw:200px}*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--txt);font-family:"DM Sans",sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid var(--bor);background:var(--sur);position:sticky;top:0;z-index:100}.logo{font-family:"Cinzel",serif;font-size:20px;font-weight:600;color:var(--acc)}.logo span{color:var(--txt);font-weight:400}#bb{display:flex;align-items:center;gap:8px;background:var(--sur2);border:1px solid var(--bor);color:var(--txt);font-size:14px;padding:8px 16px;border-radius:8px;cursor:pointer}#bb:hover{border-color:var(--acc)}.bc{background:var(--acc);color:#0e0e10;font-size:11px;border-radius:12px;padding:1px 7px}.layout{display:flex;min-height:calc(100vh - 61px)}aside{width:230px;flex-shrink:0;background:var(--sur);border-right:1px solid var(--bor);padding:20px;overflow-y:auto;position:sticky;top:61px;height:calc(100vh - 61px)}.sl{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:8px}.ss{margin-bottom:24px}#search{width:100%;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;color:var(--txt);font-size:13px;padding:8px 12px;outline:none}#search:focus{border-color:var(--acc)}.fg2{display:flex;flex-direction:column;gap:3px}.fp{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--mut);border:1px solid transparent}.fp:hover{background:#2e2e3e;color:var(--txt)}.fp.act{background:#26221a;border-color:var(--acc);color:var(--acc)}.fc2{font-size:11px;color:var(--mut);background:var(--sur2);border-radius:8px;padding:1px 6px}main{flex:1;padding:24px 28px}.gh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}.gt{font-family:"Cinzel",serif;font-size:17px;font-weight:400}.gc{font-size:13px;color:var(--mut)}.af{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.chip{display:flex;align-items:center;gap:5px;background:#26221a;border:1px solid var(--acc);color:var(--acc);font-size:12px;padding:3px 9px;border-radius:16px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cw),1fr));gap:16px}.ci{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}.ci:hover{transform:translateY(-2px);border-color:#4a4a55}.ci.il{border-color:var(--acc)}.iw{position:relative;aspect-ratio:5/7;background:var(--sur2);overflow:hidden}.iw img{width:100%;height:100%;object-fit:cover;display:block}.ph2{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px}.ilb{position:absolute;top:6px;right:6px;background:var(--acc);color:#0e0e10;font-size:10px;padding:2px 7px;border-radius:12px;opacity:0}.ci.il .ilb{opacity:1}.info{padding:9px 11px 11px;flex:1;display:flex;flex-direction:column;gap:5px}.cn{font-size:13px;font-weight:500}.cs{font-size:11px;color:var(--mut)}.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}.tag{font-size:10px;background:#252530;color:var(--mut);padding:2px 6px;border-radius:3px}.tag.g{background:#1a2030;color:#6a9fd8}.tag.s{background:#1e2a1a;color:#7aba6a}.tag.white{background:#f0ede0;color:#333}.tag.blue{background:#1a3a6a;color:#7ab4ff}.tag.black{background:#1a1a1a;color:#aaa}.tag.red{background:#4a1515;color:#ff7a7a}.tag.green{background:#1a3a1a;color:#7aba7a}.tag.gold{background:#3a2a0a;color:#e8c97a}.tag.colorless{background:#2a2a2a;color:#bbb}.code2{font-size:10px;color:var(--mut);font-family:monospace;margin-top:auto;padding-top:3px}.ab{margin:0 11px 11px;padding:7px;border-radius:6px;border:1px solid var(--bor);background:var(--sur2);color:var(--txt);font-size:12px;cursor:pointer;text-align:center}.ab:hover{background:#26221a;border-color:var(--acc);color:var(--acc)}.ci.il .ab{background:#26221a;border-color:var(--acc);color:var(--acc)}.nr{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--mut)}.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200}.ov.open{display:block}.dr{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100vh;background:var(--sur);border-left:1px solid var(--bor);z-index:201;display:flex;flex-direction:column;transition:right .3s;padding:24px 20px;gap:16px}.dr.open{right:0}.dh{display:flex;align-items:center;justify-content:space-between}.dt{font-family:"Cinzel",serif;font-size:16px;color:var(--acc)}.xb{background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer}.li2{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px}.le{display:flex;align-items:center;gap:10px;background:var(--sur2);border:1px solid var(--bor);border-radius:6px;padding:9px 11px}.lei{flex:1;min-width:0}.len{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lec{font-size:11px;color:var(--mut);font-family:monospace}.lr{background:none;border:none;color:var(--mut);font-size:15px;cursor:pointer}.lr:hover{color:#e05555}.cow{display:flex;flex-direction:column;gap:8px}.col{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em}.co{background:#0a0a0c;border:1px solid var(--bor);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--acc2);max-height:140px;overflow-y:auto;white-space:pre}.cpb{padding:12px;border-radius:8px;border:1px solid var(--acc);background:#26221a;color:var(--acc);font-size:14px;cursor:pointer;text-align:center;width:100%}.cpb:hover{background:var(--acc);color:#0e0e10}.cpb:disabled{opacity:.4}.dh2{font-size:11px;color:var(--mut);text-align:center}.dh2 strong{color:#7289da}.emp{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mut);font-size:14px;text-align:center}@media(max-width:680px){aside{display:none}main{padding:16px}:root{--cw:150px}.dr{width:100vw}}</style></head><body><header><div class="logo">Tap 4 <span>Proxies</span></div><button id="bb" onclick="openD()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>My List <span class="bc" id="bc">0</span></button></header><div class="layout"><aside><div class="ss"><div class="sl">Search</div><input type="text" id="search" placeholder="Card name..." oninput="applyF()"></div><div class="ss"><div class="sl">Category</div><div class="fg2" id="sf"></div></div><div class="ss"><div class="sl">Color</div><div class="fg2" id="colorf"></div></div><div class="ss"><div class="sl">Theme</div><div class="fg2" id="cf"></div></div></aside><main><div class="gh"><div class="gt" id="gt">All Cards</div><div class="gc" id="gc"></div></div><div class="af" id="af"></div><div class="grid" id="grid"></div></main></div><div class="ov" id="ov" onclick="closeD()"></div><div class="dr" id="dr"><div class="dh"><div class="dt">My Order List</div><button class="xb" onclick="closeD()">x</button></div><div class="li2" id="li"></div><div class="cow"><div class="col">Paste into Discord</div><div class="co" id="co">(none)</div><button class="cpb" id="cpb" onclick="cpList()" disabled>Copy Order List</button><div class="dh2">Paste into <strong>#orders</strong> on Discord</div></div></div><script>var CARDS = [];var COLORS=["white","blue","black","red","green","gold","colorless"];var ml=[],aS=null,aC=null,aCol=null;function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):""}function bf(){var sec=[];CARDS.forEach(function(c){if(sec.indexOf(c.section)<0)sec.push(c.section)});sec.sort();var ch=[];CARDS.forEach(function(c){c.chars.forEach(function(x){if(COLORS.indexOf(x)<0&&ch.indexOf(x)<0)ch.push(x)})});ch.sort();var usedColors=[];COLORS.forEach(function(col){if(CARDS.some(function(c){return(c.colors||[]).indexOf(col)>=0}))usedColors.push(col)});mk("sf",sec,function(){return aS},function(v){aS=v},false);mkColors("colorf",usedColors);mk("cf",ch,function(){return aC},function(v){aC=v},true)}function mk(id,items,gA,sA,iC){var el=document.getElementById(id);if(!el)return;el.innerHTML="";if(!items.length){el.innerHTML="<div style='font-size:12px;color:var(--mut);padding:4px 0'>None yet</div>";return}items.forEach(function(item){var cnt=CARDS.filter(function(c){return iC?c.chars.indexOf(item)>=0:c.section===item}).length;var p=document.createElement("div");p.className="fp"+(gA()===item?" act":"");p.innerHTML="<span>"+(iC?"#"+item:cap(item))+"</span><span class='fc2'>"+cnt+"</span>";p.onclick=function(){sA(gA()===item?null:item);bf();applyF()};el.appendChild(p)})}function mkColors(id,colors){var el=document.getElementById(id);if(!el)return;el.innerHTML="";var cs={white:"background:#f0ede0;color:#333",blue:"background:#1a3a6a;color:#7ab4ff",black:"background:#1a1a1a;color:#aaa",red:"background:#4a1515;color:#ff7a7a",green:"background:#1a3a1a;color:#7aba7a",gold:"background:#3a2a0a;color:#e8c97a",colorless:"background:#2a2a2a;color:#bbb"};colors.forEach(function(col){var cnt=CARDS.filter(function(c){return(c.colors||[]).indexOf(col)>=0}).length;var p=document.createElement("div");p.className="fp"+(aCol===col?" act":"");p.innerHTML="<span style='display:flex;align-items:center;gap:6px'><span style='width:10px;height:10px;border-radius:50%;display:inline-block;"+cs[col]+";flex-shrink:0'></span>"+cap(col)+"</span><span class='fc2'>"+cnt+"</span>";p.onclick=function(){aCol=aCol===col?null:col;bf();applyF()};el.appendChild(p)})}function tryImg(img,b){var u=b.toUpperCase();var tries=["/images/"+u+".PNG","/images/"+u+".JPG","/images/"+b+".png","/images/"+b+".jpg"];var cur=img.src;var found=-1;for(var i=0;i<tries.length;i++){if(cur.indexOf(tries[i])>=0){found=i;break}}var nxt=tries[found+1];if(nxt){img.src=nxt}else{img.style.display="none";img.nextElementSibling.style.display="flex"}}function applyF(){var q=document.getElementById("search").value.trim().toLowerCase();var f=CARDS.filter(function(c){if(aS&&c.section!==aS)return false;if(aCol&&(c.colors||[]).indexOf(aCol)<0)return false;if(aC&&c.chars.indexOf(aC)<0)return false;if(q){var h=[c.name,c.art,c.section].concat(c.chars).concat([c.code]).join(" ").toLowerCase();if(h.indexOf(q)<0)return false}return true});document.getElementById("gt").textContent=aS?cap(aS)+" Cards":aCol?cap(aCol)+" Cards":"All Cards";document.getElementById("gc").textContent=f.length+" card"+(f.length!==1?"s":"");var af=document.getElementById("af");af.innerHTML="";function chip(l,cl){var c=document.createElement("div");c.className="chip";c.textContent=l+" x";c.onclick=function(){cl();bf();applyF()};af.appendChild(c)}if(aS)chip(cap(aS),function(){aS=null});if(aCol)chip(cap(aCol),function(){aCol=null});if(aC)chip("#"+aC,function(){aC=null});if(q)chip('"'+q+'"',function(){document.getElementById("search").value=""});var g=document.getElementById("grid");g.innerHTML="";if(!CARDS.length){g.innerHTML="<div class='nr'><h3>No cards yet</h3></div>";return}if(!f.length){g.innerHTML="<div class='nr'><h3>No results</h3><p>Try different filters</p></div>";return}f.forEach(function(card){var il=ml.indexOf(card.id)>=0;var el=document.createElement("div");el.className="ci"+(il?" il":"");el.id="ci-"+card.id;var b=card.code.toLowerCase();var src=card.image||"/images/"+card.code+".PNG";var colorTags=(card.colors||[]).map(function(c){return"<span class='tag "+c+"'>"+cap(c)+"</span>"}).join("");el.innerHTML="<div class='iw'><img src='"+src+"' alt='"+card.art+"' loading='lazy' onerror='tryImg(this,\""+b+"\")'><div class='ph2' style='display:none'>&#x1F0CF;</div><span class='ilb'>In List</span></div><div class='info'><div class='cn'>"+card.name+"</div><div class='cs'>Art: "+card.art+"</div><div class='tags'><span class='tag g'>MTG</span><span class='tag s'>"+cap(card.section)+"</span>"+colorTags+"</div><div class='code2'>"+card.code+"</div></div><button class='ab' data-id='"+card.id+"'"+(il?" style='background:#26221a;border-color:var(--acc);color:var(--acc)'":" ")+">"+(il?"In Your List":"+ Add to List")+"</button>";g.appendChild(el)})}document.getElementById("grid").addEventListener("click",function(e){var btn=e.target.closest(".ab");if(!btn)return;var id=btn.getAttribute("data-id");ml=ml.indexOf(id)>=0?ml.filter(function(x){return x!==id}):ml.concat([id]);document.getElementById("bc").textContent=ml.length;applyF();rdraw()});function rl(id){ml=ml.filter(function(x){return x!==id});document.getElementById("bc").textContent=ml.length;applyF();rdraw()}function openD(){rdraw();document.getElementById("ov").classList.add("open");document.getElementById("dr").classList.add("open")}function closeD(){document.getElementById("ov").classList.remove("open");document.getElementById("dr").classList.remove("open")}function rdraw(){var li=document.getElementById("li"),co=document.getElementById("co"),cpb=document.getElementById("cpb");if(!ml.length){li.innerHTML="<div class='emp'><div style='font-size:32px;opacity:.4'>&#x1F0CF;</div><div>Add cards to your list</div></div>";co.textContent="(none)";cpb.disabled=true;return}cpb.disabled=false;li.innerHTML="";var lines=[];ml.forEach(function(id){var card=CARDS.find(function(c){return c.id===id});if(!card)return;lines.push(card.code);var e=document.createElement("div");e.className="le";e.innerHTML="<div class='lei'><div class='len'>"+card.name+" - "+card.art+"</div><div class='lec'>"+card.code+"</div></div><button class='lr' data-id='"+card.id+"'>x</button>";li.appendChild(e)});co.textContent=lines.join("\n");document.getElementById("li").addEventListener("click",function(e){var btn=e.target.closest(".lr");if(!btn)return;rl(btn.getAttribute("data-id"))})}function cpList(){var lines=ml.map(function(id){var c=CARDS.find(function(x){return x.id===id});return c?c.code:null}).filter(Boolean).join("\n");navigator.clipboard.writeText(lines).then(function(){var b=document.getElementById("cpb");b.textContent="Copied!";setTimeout(function(){b.textContent="Copy Order List"},2000)})}bf();applyF();</script></body></html>';}
+function getIndexTemplate(){return document.getElementById('idx-tmpl').value;}
 
-function renderAll(){renderStats();renderTable()}
+function renderAll(){renderStats();updateAlphaBar();renderTable()}
 </script>
-</body>
-</html>
+
+
+</body></html>
